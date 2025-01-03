@@ -1,11 +1,11 @@
 import React, {useState} from "react";
-import Home from "../../components/Home/Home.tsx";
 import {Button, Input} from "@material-tailwind/react";
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import {signIn} from "./login.ts";
 import {AlertNotif, useAlertNotif} from "../../components/Alert.tsx";
 import {Link, useNavigate} from "react-router-dom";
+import {useAuth} from "../../context/AuthContext.tsx";
 
 function Login() {
     const [formData, setFormData] = useState({
@@ -19,14 +19,17 @@ function Login() {
         password: "",
     });
     const navigate = useNavigate()
-    const handleSignIn = () => {
+    const {login} = useAuth()
+    const handleSignIn = async () => {
         if (validateForm()) {
-            signIn(formData, showNotification).then(() => {
-                // Add access , refresh token to context
+            const result = await signIn(formData)
+            if (result.success) {
                 setTimeout(() => {
-                    navigate("/");
-                }, 1000);
-            })
+                    navigate("/dashboard")
+                    login({accessToken: result?.data.access, refreshToken: result?.data.refresh})
+                }, 1000)
+            }
+            showNotification(result.config)
         }
     };
 
@@ -36,7 +39,7 @@ function Login() {
         const newErrors = {username: "", password: ""};
 
         // Username validation
-        if (!formData.password.match(/^\w{4,12}$/)) {
+        if (!formData.username.match(/^\w{4,12}$/)) {
             newErrors.username = "نام کاربری معتبر نیست.";
             isValid = false;
         }

@@ -4,13 +4,11 @@ import {AuthProvider} from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LandingPage from "./pages/Landing/page.tsx";
 import Login from "./pages/Login/Login.tsx";
-import SignUp from "./pages/SignUp/SignUp.tsx";
 import ResetPassword from "./pages/ResetPassword/ResetPassword.tsx";
 import ChangePassword from "./pages/ChangePassword/ChangePassword.tsx";
+import {Dashboard} from "@mui/icons-material";
 
-function Dashboard() {
-    return null;
-}
+
 
 const App: React.FC = () => {
     return (

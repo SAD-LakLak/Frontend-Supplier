@@ -1,4 +1,5 @@
 import React, {createContext, useContext, useState, ReactNode} from "react";
+import axiosInstance from "../constants/axiosConfig.ts";
 
 interface AuthContextType {
     isAuthenticated: boolean;
@@ -27,6 +28,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     };
 
     const logout = () => {
+        axiosInstance.post("/logout/", {}, {headers: {Authorization: `Bearer ${accessToken}`}});
         setAccessToken(null);
         setRefreshToken(null);
         setIsAuthenticated(false);
