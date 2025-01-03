@@ -8,10 +8,19 @@
   src: url("IRANSansXDemiBold.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "IRANSansXMedium";
+  src: url("IRANSansXMedium.ttf") format("truetype");
+}
+
 .font-IRANSansXBold {
   font-family: IRANSansXBold;
 }
 
 .font-IRANSansXDemiBold {
   font-family: IRANSansXDemiBold;
+}
+
+.font-IRANSansXMedium {
+  font-family: IRANSansXMedium;
 }

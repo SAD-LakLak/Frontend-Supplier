@@ -8,7 +8,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                custom: ['IRANSansXBold', 'IRANSansXDemiBold'],
+                custom: ['IRANSansXBold', 'IRANSansXDemiBold', 'IRANSansXMedium'],
             },
             colors: {
                 primary: "#E89325",
