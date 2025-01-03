@@ -22,6 +22,7 @@ function Login() {
     const handleSignIn = () => {
         if (validateForm()) {
             signIn(formData, showNotification).then(() => {
+                // Add access , refresh token to context
                 setTimeout(() => {
                     navigate("/");
                 }, 1000);
