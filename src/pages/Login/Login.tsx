@@ -57,15 +57,15 @@ function Login() {
     const {alertConfig, showNotification} = useAlertNotif();
 
     return (
-        <Home>
+        <div className={"flex justify-center items-center w-full h-screen bg-primaryLight"}>
             <AlertNotif alertConfig={alertConfig}/>
             <div
-                className="flex w-[55%] rounded-2xl gap-0 bg-primary h-[95%] overflow-hidden shadow-2xl shadow-gray-800">
-                <img className="flex-1 h-full -z-0 object-cover hidden lg:block" src="/images/form.png"
+                className="flex w-[50%] rounded-2xl gap-0 bg-primary h-[75%] overflow-hidden shadow-2xl shadow-gray-800">
+                <img className="flex-1 h-full  -z-0 object-cover hidden lg:block" src="/images/form.png"
                      alt="Background"/>
 
                 <div
-                    className="flex-1 flex flex-col justify-center items-center bg-primaryMiddle h-full overflow-hidden px-4">
+                    className="flex-1 flex  flex-col justify-center items-center bg-primaryMiddle h-full overflow-hidden px-4">
                     <p className="w-full text-center text-3xl font-IRANSansXBold text-black mb-8">ورود</p>
 
                     {/* Username Field */}
@@ -77,7 +77,7 @@ function Login() {
                                 type="text"
                                 value={formData.username}
                                 onChange={(e) => setFormData({...formData, username: e.target.value})}
-                                color="blue"
+                                color="orange"
                                 variant={"standard"}
                                 className="font-IRANSansXDemiBold"
                                 error={errors.username !== ""}
@@ -98,7 +98,7 @@ function Login() {
                                     type={showPassword ? "text" : "password"}
                                     value={formData.password}
                                     onChange={(e) => setFormData({...formData, password: e.target.value})}
-                                    color="blue"
+                                    color="orange"
                                     variant={"standard"}
                                     className="font-IRANSansXDemiBold"
                                     error={errors.password !== ""}
@@ -147,7 +147,7 @@ function Login() {
 
                 </div>
             </div>
-        </Home>
+        </div>
     );
 }
 
