@@ -6,7 +6,7 @@ import LandingPage from "./pages/Landing/page.tsx";
 import Login from "./pages/Login/Login.tsx";
 import ResetPassword from "./pages/ResetPassword/ResetPassword.tsx";
 import ChangePassword from "./pages/ChangePassword/ChangePassword.tsx";
-import {Dashboard} from "@mui/icons-material";
+import Dashboard from "./pages/Dashboard/Dashboad.tsx";
 
 
 
@@ -24,7 +24,7 @@ const App: React.FC = () => {
                             element={
                                 <ProtectedRoute>
                                     <Dashboard/>
-                                </ProtectedRoute>
+                                 </ProtectedRoute>
                             }
                         />
                     </Routes>
