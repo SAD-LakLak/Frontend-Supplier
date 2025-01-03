@@ -1,0 +1,17 @@
+@font-face {
+  font-family: "IRANSansXBold";
+  src: url("IRANSansXBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "IRANSansXDemiBold";
+  src: url("IRANSansXDemiBold.ttf") format("truetype");
+}
+
+.font-IRANSansXBold {
+  font-family: IRANSansXBold;
+}
+
+.font-IRANSansXDemiBold {
+  font-family: IRANSansXDemiBold;
+}

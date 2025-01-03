@@ -1,0 +1,69 @@
+# Node.js dependencies
+/node_modules
+
+# Build output
+/.nuxt
+/dist
+
+# Static files generated at runtime
+/.output
+
+# Logs and debugging
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Environment files
+.env
+.env.*.local
+
+# Nuxt lock files
+.nuxt/*
+.nuxt
+
+# Editor directories and files
+.idea
+.vscode
+*.swp
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Test coverage
+/coverage
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.old
+
+# Lint cache
+.eslintcache
+
+# Optional npm cache
+.npm
+
+# Optional Yarn cache
+.yarn
+.pnp.*
+
+# Production lockfile
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
+
+# Generated static files
+/static
+
+# Ignore generated files by Nuxt Image
+/public/cache
+
+# Ignore local package links
+.npmrc
+
+# Ignore functions directory if using serverless
+/functions
