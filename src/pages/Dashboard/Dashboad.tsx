@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import DashboardMenu from "../../components/DashboardMenu.tsx";
 import {useAuth} from "../../context/AuthContext.tsx";
-import {fetchUserData} from "./userData.ts";
 import axiosInstance from "../../constants/axiosConfig.ts";
 import {Button} from "@material-tailwind/react";
 import {useNavigate} from "react-router-dom";
