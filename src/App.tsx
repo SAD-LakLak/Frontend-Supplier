@@ -4,6 +4,7 @@ import {AuthProvider} from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LandingPage from "./pages/Landing/page.tsx";
 import Login from "./pages/Login/Login.tsx";
+import SignUp from "./pages/SignUp/SignUp.tsx";
 import ResetPassword from "./pages/ResetPassword/ResetPassword.tsx";
 import ChangePassword from "./pages/ChangePassword/ChangePassword.tsx";
 import Dashboard from "./pages/Dashboard/Dashboad.tsx";
@@ -17,6 +18,7 @@ const App: React.FC = () => {
                     <Routes>
                         <Route path="/" element={<LandingPage/>}/>
                         <Route path="/login" element={<Login/>}/>
+                        <Route path="/signUp" element={<SignUp/>}/>
                         <Route path="/resetPassword" element={<ResetPassword/>}/>
                         <Route path="/changePassword" element={<ChangePassword/>}/>
                         <Route
