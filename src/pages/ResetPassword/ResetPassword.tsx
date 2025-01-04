@@ -29,7 +29,7 @@ const ResetPassword = () => {
         let isValid = true;
         const newErrors = {email: ""};
 
-        if (!formData.email.match(/^\w+@\w+$/)) {
+        if (!formData.email.match(/^\w+@\w+\.\w+$/)) {
             newErrors.email = "ایمیل نامعتبر است.";
             isValid = false;
         }

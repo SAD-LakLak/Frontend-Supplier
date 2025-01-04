@@ -17,7 +17,7 @@ function SignUp() {
         password: "",
         password2: "",
         showPassword: false,
-        role: "customer"
+        role: "supplier"
     });
 
     const [errors, setErrors] = useState({
