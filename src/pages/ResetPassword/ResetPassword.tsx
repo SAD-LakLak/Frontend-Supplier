@@ -43,14 +43,14 @@ const ResetPassword = () => {
         <div className={"h-screen flex justify-center items-center w-full bg-primaryLight"}>
             <AlertNotif alertConfig={alertConfig}/>
             <div
-                className="flex w-fit rounded-2xl gap-0 bg-primary h-[95%] overflow-hidden shadow-2xl shadow-gray-800">
+                className="flex w-fit rounded-2xl gap-0 bg-primary h-[75%] overflow-hidden shadow-2xl shadow-gray-800">
 
                 <div
                     className="flex-1 flex flex-col justify-between py-8 items-center bg-primaryMiddle h-full overflow-hidden px-4">
                     <Link to={"/"} className={"h-32 mt-0"}>
                         <img src={"./images/logo.png"} className={"h-full w-full"}/>
                     </Link>
-                    <p className="w-full text-center text-3xl font-IRANSansXBold text-black">بازیابی رمز ورود</p>
+                    <p className="w-full text-center text-3xl font-IRANSansXBold text-black mb-8">بازیابی رمز ورود</p>
                     <p dir={"rtl"} className="w-[70%] text-center text-sm font-IRANSansXDemiBold text-black">
                         برای دریافت لینک بازیابی رمز عبور، ایمیل خود را وارد کنید.
                     </p>
@@ -74,7 +74,7 @@ const ResetPassword = () => {
                     {/* Sign In Button */}
                     <Button
                         onClick={handleResetPassword}
-                        className="font-IRANSansXBold rounded-3xl w-fit px-6 py-2 bg-primary text-white mb-16"
+                        className="font-IRANSansXBold rounded-3xl w-fit px-6 py-2 bg-primary text-white mt-8 mb-16"
                     >
                         دریافت لینک بازیابی
                     </Button>
