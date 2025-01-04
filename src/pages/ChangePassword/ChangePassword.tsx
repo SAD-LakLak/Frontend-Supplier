@@ -64,11 +64,11 @@ const ResetPassword = () => {
 
 
     return (
-        <div className={"bg-primaryMiddle w-full h-screen flex justify-center items-center"}>
+        <div className={"bg-primaryLight w-full h-screen flex justify-center items-center"}>
             <AlertNotif alertConfig={alertConfig}/>
             <div
-                className=" flex w-fit px-16 rounded-2xl gap-0 bg-white h-[70%] overflow-hidden shadow-2xl shadow-gray-800 ">
-                <div className="flex-1 w-fit flex flex-col justify-between items-center bg-white h-full px-4 ">
+                className=" flex w-fit px-16 rounded-2xl gap-0 bg-primaryMiddle h-[70%] overflow-hidden shadow-2xl shadow-gray-800 ">
+                <div className="flex-1 w-fit flex flex-col justify-between items-center bg-primaryMiddle h-full px-4 ">
                     <Link to={"/"} className={"h-32 mt-8"}>
                         <img src={"./images/logo.png"} className={"h-full w-full"}/>
                     </Link>
@@ -83,7 +83,7 @@ const ResetPassword = () => {
                                 type={formData.showPassword ? "text" : "password"}
                                 value={formData.password}
                                 onChange={(e) => setFormData({...formData, password: e.target.value})}
-                                color="blue"
+                                color="orange"
                                 variant={"standard"}
                                 className="font-IRANSansXDemiBold"
                                 error={errors.password !== ""}
@@ -105,7 +105,7 @@ const ResetPassword = () => {
                             type="password"
                             value={formData.password2}
                             onChange={(e) => setFormData({...formData, password2: e.target.value})}
-                            color="blue"
+                            color="orange"
                             variant={"standard"}
                             className="font-IRANSansXDemiBold"
                             error={errors.password2 !== ""}
