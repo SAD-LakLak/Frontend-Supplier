@@ -7,18 +7,7 @@ import {replacePersianNumbers} from "../../../utils/replacePersianNumbers";
 import DashboardMenu from "../../../components/DashboardMenu.tsx";
 import {useAuth} from "../../../context/AuthContext.tsx";
 import axiosInstance from "../../../constants/axiosConfig.ts";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
-const settings = {
-    dots: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    infinite: true,
-    autoplay: false,
-};
 
 function CreateProduct() {
     const [formData, setFormData] = useState({
@@ -34,6 +23,7 @@ function CreateProduct() {
         price: "",
         stock: "",
         images: "",
+        hasAccepted: "",
     });
 
     const [images, setImages] = useState<(File | string)[]>([
@@ -45,6 +35,7 @@ function CreateProduct() {
 
     const {alertConfig, showNotification} = useAlertNotif();
     const navigate = useNavigate();
+    const [hasAccepted, setHasAccepted] = useState<boolean>(false);
 
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
@@ -53,10 +44,10 @@ function CreateProduct() {
             const newImages = Array.from(files);
             const validImages: File[] = [];
 
-            // Validate file size and limit to 4 images
             for (const file of newImages) {
-                if (file.size > 5 * 1024 * 1024) {
+                if (file.size > 2 * 1024 * 1024) {
                     newErrors.images = "سایز تصاویر بیشتر از حد مجاز"
+                    setErrors(newErrors);
                 } else {
                     validImages.push(file);
                 }
@@ -65,7 +56,6 @@ function CreateProduct() {
             if (validImages.length > 0) {
                 setImages((prev) => {
                     const updatedImages = [...prev];
-                    let index = 0;
 
                     for (const image of validImages) {
                         const placeholderIndex = updatedImages.findIndex(
@@ -116,6 +106,11 @@ function CreateProduct() {
             isValid = false;
         }
 
+        if(!hasAccepted){
+            newErrors.hasAccepted = "تایید شرط اجباری است";
+            isValid = false;
+        }
+
         setErrors(newErrors);
         return isValid;
     };
@@ -139,7 +134,7 @@ function CreateProduct() {
             {/*left div*/}
             <div className={"flex w-full flex-col gap-8 rounded-2xl bg-white p-8 items-center"}>
                 <div className={"flex justify-between gap-16"}> {/* top div */}
-                    <div className={"flex flex-col gap-16"}> {/* left div */}
+                    <div className={"flex flex-col gap-16 items-end"}> {/* left div */}
                         <div className={"w-full flex justify-between gap-4"}> {/* images */}
                             {/* left div */}
                             <div className="w-3/5 flex flex-col gap-4">
@@ -206,15 +201,19 @@ function CreateProduct() {
                             </span>
                             است و اطلاعات واردشده شامل هیچ‌گونه محتوای غیرقانونی، غیراخلاقی، یا ناقض حقوق دیگران نیستند.
                             </p> 
-                                <label className="flex items-top py-2 cursor-pointer relative">
-                                    <input type="checkbox" className="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-primary checked:border-primary" id="check" />
-                                    <span className="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="mb-5 h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="1">
-                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                    </svg>
-                                    </span>
-                                </label>
+                            <label className="flex items-top py-2 cursor-pointer relative">
+                                <input 
+                                type="checkbox" id="check" checked={hasAccepted} onChange={(e) => setHasAccepted(e.target.checked)}
+                                className="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-primary checked:border-primary" 
+                                onError={errors.hasAccepted !== ""}/>
+                                <span className="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="mb-5 h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="1">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                                </span>
+                            </label>
                         </div>
+                    {errors.hasAccepted && <p className="w-full text-red-500 text-sm mt-1 border-red">{errors.hasAccepted}</p>}
                     </div>
                     <div className={"flex flex-col gap-4 w-2/5 mx-4"}> {/* info form */}
                         <p className={"w-full font-IRANSansXDemiBold text-3xl mb-8 text-onBackground"} dir={"rtl"}>اطلاعات محصول</p>
