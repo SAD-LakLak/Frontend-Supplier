@@ -8,6 +8,8 @@ import SignUp from "./pages/SignUp/SignUp.tsx";
 import ResetPassword from "./pages/ResetPassword/ResetPassword.tsx";
 import ChangePassword from "./pages/ChangePassword/ChangePassword.tsx";
 import Dashboard from "./pages/Dashboard/Dashboad.tsx";
+import Products from "./pages/Products/Products.tsx";
+import CreateProduct from "./pages/Products/CreateProduct/CreateProduct.tsx";
 
 
 
@@ -21,6 +23,7 @@ const App: React.FC = () => {
                         <Route path="/signUp" element={<SignUp/>}/>
                         <Route path="/resetPassword" element={<ResetPassword/>}/>
                         <Route path="/changePassword" element={<ChangePassword/>}/>
+                        <Route path="/products/createProduct" element={<CreateProduct/>}/>
                         <Route
                             path="/dashboard"
                             element={
@@ -29,6 +32,22 @@ const App: React.FC = () => {
                                  </ProtectedRoute>
                             }
                         />
+                        {/* <Route
+                            path="/products"
+                            element={
+                                <ProtectedRoute>
+                                    <Products/>
+                                 </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/products/createProduct"
+                            element={
+                                <ProtectedRoute>
+                                    <CreateProduct/>
+                                 </ProtectedRoute>
+                            }
+                        /> */}
                     </Routes>
                 </Router>
         </AuthProvider>

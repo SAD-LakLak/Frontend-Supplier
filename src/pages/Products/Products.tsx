@@ -6,7 +6,7 @@ import {Button} from "@material-tailwind/react";
 import {useNavigate} from "react-router-dom";
 
 
-function Dashboard() {
+function Products() {
     const {accessToken,logout} = useAuth();
     const [userData, setUserData] = useState({
         first_name: "",
@@ -47,7 +47,7 @@ function Dashboard() {
     return (
         <div className={"bg-primaryLight min-h-screens h-screen w-full py-8 px-16 flex gap-8"}>
             {/*left part*/}
-            <div className={"flex w-4/5 flex-col gap-4 rounded-2xl"}>
+            <div className={"flex w-3/4 flex-col gap-4 rounded-2xl"}>
                 {/*top part*/}
                 <div className={"flex w-full flex-col gap-8 rounded-2xl bg-white p-8 items-end"}>
                     <p className={"w-full font-IRANSansXBold text-3xl "} dir={"rtl"}>اطلاعات حساب کاربری</p>

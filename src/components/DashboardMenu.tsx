@@ -7,7 +7,7 @@ function DashboardMenu() {
     const navigate = useNavigate()
 
     return (
-        <div className={"flex w-1/4 flex-col gap-4 rounded-2xl bg-white items-center justify-between"}>
+        <div className={"flex w-1/5 flex-col gap-4 rounded-2xl bg-white items-center justify-between"}>
             <img src={"/images/logo.png"} alt="logo" className={"w-1/2 mt-4"}/>
             <div className={"flex flex-col gap-4 w-full items-center mb-16"}>
                 <Button onClick={() => {

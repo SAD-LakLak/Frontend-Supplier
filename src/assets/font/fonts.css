@@ -13,6 +13,11 @@
   src: url("IRANSansXMedium.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "IRANSansXRegular";
+  src: url("IRANSansXRegular.ttf") format("truetype");
+}
+
 .font-IRANSansXBold {
   font-family: IRANSansXBold;
 }
@@ -23,4 +28,8 @@
 
 .font-IRANSansXMedium {
   font-family: IRANSansXMedium;
+}
+
+.font-IRANSansXRegular {
+  font-family: IRANSansXRegular;
 }
