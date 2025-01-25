@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    font-family: "IRANSansXRegular";
+    color: onBackground;
+    text-align: right;
+    direction: rtl;
+}
 
 .debug{
     border: 2px solid red;

@@ -23,7 +23,6 @@ const App: React.FC = () => {
                         <Route path="/signUp" element={<SignUp/>}/>
                         <Route path="/resetPassword" element={<ResetPassword/>}/>
                         <Route path="/changePassword" element={<ChangePassword/>}/>
-                        <Route path="/products/createProduct" element={<CreateProduct/>}/>
                         <Route
                             path="/dashboard"
                             element={
@@ -39,7 +38,7 @@ const App: React.FC = () => {
                                     <Products/>
                                  </ProtectedRoute>
                             }
-                        />
+                        /> */}
                         <Route
                             path="/products/createProduct"
                             element={
@@ -47,7 +46,7 @@ const App: React.FC = () => {
                                     <CreateProduct/>
                                  </ProtectedRoute>
                             }
-                        /> */}
+                        />
                     </Routes>
                 </Router>
         </AuthProvider>

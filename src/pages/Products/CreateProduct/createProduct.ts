@@ -12,15 +12,20 @@ interface ICreateProdBody {
 
 export const createProduct = async (
     createProdData: ICreateProdBody,
-    showNotification: (config: NotifConfig) => void
+    showNotification: (config: NotifConfig) => void,
+    accessToken: string
 ) => {
     const body = createProdData;
     const notifConfig: NotifConfig = {
         timeout: 1500, notifType: "success", text: "محصول با موفقیت ایجاد شد!", show: true
     };
 
+    const headers = {
+        Authorization: `Bearer ${accessToken}`,
+    }
+
     axiosInstance
-        .post("/products/register/", body)
+        .post("/products/register/", body, {headers})
         .then(() => {
             notifConfig.notifType = "success";
             notifConfig.text = "محصول با موفقیت ایجاد شد!";

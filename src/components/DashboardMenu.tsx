@@ -17,6 +17,9 @@ function DashboardMenu() {
                     navigate("/products")
                 }} className="rounded-full w-[80%] bg-primary font-IRANSansXDemiBold">محصولات</Button>
                 <Button onClick={() => {
+                    navigate("/products/createProduct")
+                }} className="rounded-full w-[80%] bg-primary font-IRANSansXDemiBold">ایجاد محصول</Button>
+                <Button onClick={() => {
                     navigate("/orders")
                 }} className="rounded-full w-[80%] bg-primary font-IRANSansXDemiBold">سفارشات</Button>
                 <Button onClick={() => {

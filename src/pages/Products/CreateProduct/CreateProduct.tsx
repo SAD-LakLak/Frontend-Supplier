@@ -1,12 +1,11 @@
-import React, {useEffect, useState} from "react";
-import {Button, Textarea, Input} from "@material-tailwind/react";
+import React, {useState} from "react";
+import {Button, Select, Option, Input} from "@material-tailwind/react";
 import {createProduct} from "./createProduct.ts";
 import {AlertNotif, useAlertNotif} from "../../../components/Alert.tsx";
 import {Link, useNavigate} from "react-router-dom";
 import {replacePersianNumbers} from "../../../utils/replacePersianNumbers";
 import DashboardMenu from "../../../components/DashboardMenu.tsx";
 import {useAuth} from "../../../context/AuthContext.tsx";
-import axiosInstance from "../../../constants/axiosConfig.ts";
 
 
 function CreateProduct() {
@@ -36,6 +35,7 @@ function CreateProduct() {
     const {alertConfig, showNotification} = useAlertNotif();
     const navigate = useNavigate();
     const [hasAccepted, setHasAccepted] = useState<boolean>(false);
+    const {accessToken, logout} = useAuth();
 
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
@@ -120,31 +120,138 @@ function CreateProduct() {
             formData.price = replacePersianNumbers(formData.price);
             formData.stock = replacePersianNumbers(formData.stock);
 
-            createProduct(formData, showNotification).then(() => {
+            if (accessToken){
+                console.log(accessToken);
+                createProduct(formData, showNotification, accessToken).then(() => {
                 setTimeout(() => {
                     navigate("/products");
                 }, 1000);
-            });
+            });}
         }
     };
 
     return (
         <div className={"bg-primaryLight min-h-screens h-fit w-fit py-8 px-16 flex gap-8"}>
             <AlertNotif alertConfig={alertConfig}/>
+            <DashboardMenu/>
             {/*left div*/}
-            <div className={"flex w-full flex-col gap-8 rounded-2xl bg-white p-8 items-center"}>
+            <div className={"flex w-full flex-col gap-8 rounded-2xl py-12 bg-white px-8 items-center"}>
                 <div className={"flex justify-between gap-16"}> {/* top div */}
+                    <div className={"flex flex-col gap-4 w-2/5"}> {/* info form */}
+                        <p className={"w-full font-IRANSansXDemiBold text-3xl mb-8 text-onBackground"} dir={"rtl"}>اطلاعات محصول</p>
+                        <div className={"flex justify-between gap-4"}> {/* form */}
+                            <div className={"flex flex-col gap-4"}>
+                                <Input
+                                    label="نام محصول"
+                                    type="text"
+                                    value={formData.name}
+                                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                    color="orange"
+                                    variant={"standard"}
+                                    className="font-IRANSansXRegular"
+                                />
+                                <div className="relative w-full">
+                                    <textarea
+                                        id="description"
+                                        value={formData.description}
+                                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                        className="peer w-full h-full my-0.5 resize-none border-0 border-b border-gray-200 bg-transparent text-sm text-right font-IRANSansXRegular focus:border-orange-500 focus:outline-none focus:ring-0"
+                                        rows={4}
+                                    />
+                                    <label
+                                        htmlFor="description"
+                                        className="absolute right-1 top-4 text-sm text-onBackground transition-all duration-200 peer-focus:top-0 peer-focus:text-xs peer-focus:text-orange-500"
+                                    >
+                                        توضیحات
+                                    </label>
+                                    <p className="flex items-start text-xs text-slate-400">
+                                    شامل برند، جنس، محل ساخت، مخاطب، تعداد در بسته، و...
+                                    </p>
+                                </div>
+                                {errors.description && (
+                                    <p className="w-full text-red-500 text-sm">{errors.description}</p>
+                                )}
+                            </div>
+                            <div className={"flex flex-col gap-4"}>
+                                <Select
+                                    label="دسته‌بندی"
+                                    value={formData.type}
+                                    onChange={(value) => setFormData({ ...formData, type: value })}
+                                    color="orange"
+                                    variant="standard"
+                                    Dismiss
+                                    className="font-IRANSansXRegular text-right appearance-none"
+                                >
+                                    <Option value="clothing">پوشاک</Option>
+                                    <Option value="sanitary">محصولات بهداشتی-مراقبتی</Option>
+                                    <Option value="entertainment">سرگرمی</Option>
+                                    <Option value="food">خوردنی</Option>
+                                    <Option value="service">خدمات</Option>
+                                    <Option value="other">سایر</Option>
+                                </Select>
+                                <div className="relative w-full">
+                                    <Input
+                                        label="قیمت"
+                                        type="text"
+                                        value={formData.price}
+                                        onChange={(e) => setFormData({...formData, price: e.target.value})}
+                                        color="orange"
+                                        variant={"standard"}
+                                        className="font-IRANSansXRegular"
+                                        error={errors.price !== ""}
+                                    />
+                                    <p className="flex items-start text-xs text-slate-400 mt-2">
+                                        به ازای هر واحد (ریال)
+                                    </p>
+                                </div>
+                                {errors.price && <p className="w-full text-red-500 text-sm mt-1">{errors.price}</p>}
+                                <Input
+                                    label="موجودی"
+                                    type="text"
+                                    value={formData.stock}
+                                    onChange={(e) => setFormData({...formData, stock: e.target.value})}
+                                    color="orange"
+                                    variant={"standard"}
+                                    className="font-IRANSansXRegular"
+                                    error={errors.stock !== ""}
+                                />
+                                {errors.stock && <p className="w-full text-red-500 text-sm mt-1">{errors.stock}</p>}
+                            </div>
+                        </div>
+                    </div>  
                     <div className={"flex flex-col gap-16 items-end"}> {/* left div */}
-                        <div className={"w-full flex justify-between gap-4"}> {/* images */}
-                            {/* left div */}
-                            <div className="w-3/5 flex flex-col gap-4">
-                                <div className="w-full flex justify-between gap-4">
+                        <div className={"w-full flex justify-between gap-6"}> {/* images */}
+                            {/* right div */}
+                            <div className={"flex flex-col gap-4 items-end"}> 
+                                <p className={"w-full font-IRANSansXDemiBold text-3xl mb-8 text-onBackground"} dir={"rtl"}>تصاویر محصول</p>   
+                                <p className={"w-[200px] font-IRANSansXRegular text-wrap text-l mb-4 text-onBackground"} dir={"rtl"}>
+                                تا ۵ تصویر از محصول خود آپلود کنید. حداکثر سایز مجاز برای هر تصویر ۲ مگابایت است. استفاده از تصاویری که متعلق به شما نباشند غیرمجاز است و موجب غیرفعال شدن محصول خواهد شد.
+                                </p>   
+                                <label
+                                    className="text-sm font-IRANSansXDemiBold bg-primary text-white px-4 py-2 rounded-3xl cursor-pointer transition hover:shadow-lg disabled:bg-gray-400 disabled:cursor-not-allowed"
+                                    htmlFor="customFileInput"
+                                >
+                                    انتخاب تصاویر
+                                </label>
+                                <input
+                                    id="customFileInput"
+                                    type="file"
+                                    accept="image/*"
+                                    multiple
+                                    onChange={handleImageUpload}
+                                    disabled={images.filter((img) => typeof img !== "string").length >= 4}
+                                    className="hidden"
+                                />
+                            </div>
+                            {/* preview */}
+                            <div className="w-3/5 flex flex-col gap-2">
+                                <div className="w-full flex justify-between gap-2">
                                     {images.slice(0, 2).map((image, index) => (
                                         <div key={index} className="w-1/2 relative">
                                             <img
                                                 src={typeof image === "string" ? image : URL.createObjectURL(image)}
                                                 alt={`Image ${index + 1}`}
-                                                className="w-full h-32 object-contain"
+                                                className="w-full h-40 object-contain"
                                             />
                                             {typeof image !== "string" && (
                                                 <button
@@ -157,13 +264,13 @@ function CreateProduct() {
                                         </div>
                                     ))}
                                 </div>
-                                <div className="w-full flex justify-between gap-4">
+                                <div className="w-full flex justify-between gap-2">
                                     {images.slice(2, 4).map((image, index) => (
                                         <div key={index + 2} className="w-1/2 relative">
                                             <img
                                                 src={typeof image === "string" ? image : URL.createObjectURL(image)}
                                                 alt={`Image ${index + 3}`}
-                                                className="w-full h-32 object-contain"
+                                                className="w-full h-40 object-contain"
                                             />
                                             {typeof image !== "string" && (
                                                 <button
@@ -177,119 +284,40 @@ function CreateProduct() {
                                     ))}
                                 </div>
                             </div>
-                            {/* right div */}
-                            <div className={"flex flex-col gap-4 items-end"}> 
-                                <p className={"w-full font-IRANSansXDemiBold text-3xl mb-8 text-onBackground"} dir={"rtl"}>تصاویر محصول</p>   
-                                <p className={"w-[300px] font-IRANSansXRegular text-wrap text-l mb-4 text-onBackground"} dir={"rtl"}>
-                                تا ۵ تصویر از محصول خود آپلود کنید. حداکثر سایز مجاز برای هر تصویر ۲ مگابایت است. استفاده از تصاویری که متعلق به شما نباشند غیرمجاز است و موجب غیرفعال شدن محصول خواهد شد.
-                                </p>   
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    multiple
-                                    onChange={handleImageUpload}
-                                    disabled={images.filter((img) => typeof img !== "string").length >= 4}
-                                    className="mb-4"
-                                />
-                            </div>
-                        </div>
-                        <div className={"w-full inline-flex items-top gap-4"}> {/* checkbox */}
-                            <p className={"w-full font-IRANSansXRegular text-wrap text-sm mb-4 text-onBackground opacity-90"} dir={"rtl"}>
-                            تأیید می‌کنم که این محصول مطابق
-                            <span className="inline-block px-1">
-                                <Link to="/privacyPolicy" className="hover:text-primary underline">قوانین و مقررات لک‌لک</Link>
-                            </span>
-                            است و اطلاعات واردشده شامل هیچ‌گونه محتوای غیرقانونی، غیراخلاقی، یا ناقض حقوق دیگران نیستند.
-                            </p> 
-                            <label className="flex items-top py-2 cursor-pointer relative">
-                                <input 
-                                type="checkbox" id="check" checked={hasAccepted} onChange={(e) => setHasAccepted(e.target.checked)}
-                                className="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-primary checked:border-primary" 
-                                onError={errors.hasAccepted !== ""}/>
-                                <span className="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="mb-5 h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="1">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                </svg>
-                                </span>
-                            </label>
                         </div>
                     {errors.hasAccepted && <p className="w-full text-red-500 text-sm mt-1 border-red">{errors.hasAccepted}</p>}
                     </div>
-                    <div className={"flex flex-col gap-4 w-2/5 mx-4"}> {/* info form */}
-                        <p className={"w-full font-IRANSansXDemiBold text-3xl mb-8 text-onBackground"} dir={"rtl"}>اطلاعات محصول</p>
-                        <Input
-                            label="نام محصول"
-                            placeholder="نام محصول"
-                            type="text"
-                            value={formData.name}
-                            onChange={(e) => setFormData({...formData, name: e.target.value})}
-                            color="orange"
-                            variant={"filled"}
-                            className="font-IRANSansXRegular"
-                        />
-                        <div className={"mb-16"}>
-                            <Input
-                                label="توضیحات"
-                                placeholder="شامل برند، جنس، محل ساخت، مخاطب، تعداد در بسته، و..."
-                                type="text"
-                                value={formData.description}
-                                onChange={(e) => setFormData({...formData, description: e.target.value})}
-                                color="orange"
-                                variant={"filled"}
-                                className="font-IRANSansXRegular h-[108px] placeholder:whitespace-pre-wrap placeholder:text-start-right placeholder:align-top"
-                                error={errors.description !== ""}
-                            />
-                            {errors.description && <p className="w-full text-red-500 text-sm text-wrap">{errors.description}</p>}
-                        </div>
-                        <Input
-                            label="دسته‌بندی"
-                            placeholder="شامل برند، جنس، محل ساخت، مخاطب، تعداد در بسته، و..."
-                            type="text"
-                            value={formData.description}
-                            onChange={(e) => setFormData({...formData, description: e.target.value})}
-                            color="orange"
-                            variant={"filled"}
-                            className="font-IRANSansXRegular"
-                            error={errors.description !== ""}
-                        />
-                        {errors.description && <p className="w-full text-red-500 text-sm mt-1">{errors.description}</p>}
-                        <Input
-                            label="قیمت"
-                            placeholder="به ازای هر واحد (ریال)"
-                            type="text"
-                            value={formData.price}
-                            onChange={(e) => setFormData({...formData, price: e.target.value})}
-                            color="orange"
-                            variant={"filled"}
-                            className="font-IRANSansXRegular"
-                            error={errors.price !== ""}
-                        />
-                        {errors.price && <p className="w-full text-red-500 text-sm mt-1">{errors.price}</p>}
-                        <Input
-                            label="موجودی"
-                            placeholder="موجودی اولیه‌ی محصول"
-                            type="text"
-                            value={formData.stock}
-                            onChange={(e) => setFormData({...formData, stock: e.target.value})}
-                            color="orange"
-                            variant={"filled"}
-                            className="font-IRANSansXRegular"
-                            error={errors.stock !== ""}
-                        />
-                        {errors.stock && <p className="w-full text-red-500 text-sm mt-1">{errors.stock}</p>}
-                    </div>
+                </div>
+                <div className={"w-full inline-flex items-top gap-4 mt-8"}> {/* checkbox */}
+                    <label className="flex items-top py-2 cursor-pointer relative">
+                        <input 
+                        type="checkbox" id="check" checked={hasAccepted} onChange={(e) => setHasAccepted(e.target.checked)}
+                        className="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-primary checked:border-primary" 
+                        onError={errors.hasAccepted !== ""}/>
+                        <span className="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="mb-7 h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="1">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                        </span>
+                    </label>
+                    <p className={"w-full font-IRANSansXRegular text-wrap text-l mb-4 text-onBackground opacity-90"} dir={"rtl"}>
+                    تأیید می‌کنم که این محصول مطابق
+                    <span className="inline-block px-1">
+                        <Link to="/privacyPolicy" className="hover:text-primary underline">قوانین و مقررات لک‌لک</Link>
+                    </span>
+                    است و اطلاعات واردشده حاوی هیچ‌گونه محتوای غیرقانونی، غیراخلاقی، یا ناقض حقوق دیگران نیستند.
+                    </p> 
                 </div>
                 <Button
-                        onClick={handleCreate}
-                        className="font-IRANSansXDemiBold rounded-3xl bg-primary text-white"
-                    >
-                        ایجاد محصول
+                    onClick={handleCreate}
+                    className="font-IRANSansXDemiBold px-12 rounded-3xl bg-primary text-white text-sm"
+                >
+                    ایجاد محصول
                 </Button>
                 <p className={"w-full font-IRANSansXRegular text-wrap text-center text-sm mb-4 text-onBackground opacity-80"} dir={"rtl"}>
                 محصول شما ابتدا در حالت غیرفعال ایجاد خواهد شد و پس از تایید به صورت خودکار فعال خواهد شد. برای پیگیری وضعیت تایید محصول می‌توانید به بخش تیکت‌های پنل پشتیبانی مراجعه کنید.
                 </p>
             </div>
-            <DashboardMenu/>
         </div>
     );
 }
