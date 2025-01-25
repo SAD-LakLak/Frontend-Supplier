@@ -90,7 +90,6 @@ function SignUp() {
         <div className={"flex justify-center items-center w-full h-screen bg-primaryLight"}>
             <AlertNotif alertConfig={alertConfig}/>
             <div className="flex w-fit rounded-2xl gap-0 bg-primary h-[75%] overflow-hidden shadow-2xl shadow-gray-800">
-                <img className="flex-1 h-full  -z-0 object-cover hidden lg:block" src="/images/form.png" alt="Background"/>
                 <div className="flex-1 w-[50%] flex flex-col justify-between items-center bg-primaryMiddle h-full px-4">
                     <p className="w-full text-center text-2xl font-IRANSansXBold text-black mt-8">ثبت‌ نام</p>
                     <div className={"flex flex-col gap-2 w-fit mx-4 "}>
@@ -224,6 +223,7 @@ function SignUp() {
                         </p>
                     </div>
                 </div>
+                <img className="flex-1 h-full  -z-0 object-cover hidden lg:block" src="/images/form.png" alt="Background"/>
             </div>
         </div>
     );
