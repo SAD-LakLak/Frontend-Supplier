@@ -8,29 +8,37 @@ import SignUp from "./pages/SignUp/SignUp.tsx";
 import ResetPassword from "./pages/ResetPassword/ResetPassword.tsx";
 import ChangePassword from "./pages/ChangePassword/ChangePassword.tsx";
 import Dashboard from "./pages/Dashboard/Dashboad.tsx";
-
+import Products from "./pages/Products/Products.tsx";
 
 
 const App: React.FC = () => {
     return (
         <AuthProvider>
-                <Router>
-                    <Routes>
-                        <Route path="/" element={<LandingPage/>}/>
-                        <Route path="/login" element={<Login/>}/>
-                        <Route path="/signUp" element={<SignUp/>}/>
-                        <Route path="/resetPassword" element={<ResetPassword/>}/>
-                        <Route path="/changePassword" element={<ChangePassword/>}/>
-                        <Route
-                            path="/dashboard"
-                            element={
-                                <ProtectedRoute>
-                                    <Dashboard/>
-                                 </ProtectedRoute>
-                            }
-                        />
-                    </Routes>
-                </Router>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<LandingPage/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/signUp" element={<SignUp/>}/>
+                    <Route path="/resetPassword" element={<ResetPassword/>}/>
+                    <Route path="/changePassword" element={<ChangePassword/>}/>
+                    <Route
+                        path="/dashboard"
+                        element={
+                            <ProtectedRoute>
+                                <Dashboard/>
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/products"
+                        element={
+                            <ProtectedRoute>
+                                <Products/>
+                            </ProtectedRoute>
+                        }
+                    />
+                </Routes>
+            </Router>
         </AuthProvider>
     );
 };

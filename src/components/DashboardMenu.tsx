@@ -11,7 +11,7 @@ function DashboardMenu() {
             <img src={"/images/logo.png"} alt="logo" className={"w-1/2 mt-4"}/>
             <div className={"flex flex-col gap-4 w-full items-center mb-16"}>
                 <Button onClick={() => {
-                    navigate("/profile")
+                    navigate("/dashboard")
                 }} className="rounded-full w-[80%] bg-primary font-IRANSansXDemiBold">حساب کاربری</Button>
                 <Button onClick={() => {
                     navigate("/products")
