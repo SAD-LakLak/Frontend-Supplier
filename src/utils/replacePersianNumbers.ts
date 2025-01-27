@@ -8,7 +8,6 @@ export const replacePersianNumbers = (input: string): string => {
     const regex = new RegExp(persianNumbers[i], "g");
     result = result.replace(regex, englishNumbers[i]);
   }
-  console.log(result)
   return result;
 };
 
@@ -22,6 +21,5 @@ export const replaceEnglishDigits = (input: string): string => {
     const regex = new RegExp(englishNumbers[i], "g");
     result = result.replace(regex, persianNumbers[i]);
   }
-  console.log(result);
   return result;
 };

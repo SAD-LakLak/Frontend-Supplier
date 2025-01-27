@@ -1,11 +1,13 @@
 import DashboardMenu from "../../components/DashboardMenu.tsx";
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import axios from 'axios';
 import {TextField, MenuItem} from '@mui/material';
 import {useNavigate} from "react-router-dom";
 
 import {Button} from "@material-tailwind/react";
-import ProductCard from "./ProductCard.tsx";
+import ProductRowCard from "./ProductCard.tsx";
+import {Product} from "../../types/Product.ts";
+import axiosInstance from "../../constants/axiosConfig.ts";
 
 const Products = () => {
     const navigate = useNavigate();
@@ -27,7 +29,7 @@ const Products = () => {
                 .filter(([_, value]) => value !== '')
                 .map(([key, value]) => `${key}=${value}`)
                 .join('&');
-            const response = await axios.get(`http://localhost:8000/api/products/?${query}`);
+            const response = await axiosInstance.get(`/products/?${query}`);
             setProducts(response.data.results);
         } catch (error) {
             console.error('Error fetching products:', error);
@@ -57,7 +59,6 @@ const Products = () => {
         };
         setFilters(resetFilters);
         setAppliedFilters(resetFilters);
-        fetchProducts(resetFilters);
     };
 
     useEffect(() => {
@@ -141,8 +142,8 @@ const Products = () => {
                     </div>
                     {/*products*/}
                     <div className="flex flex-col gap-2 px-4">
-                        {products.map((product) => (
-                            <ProductCard key={product.id} product={product}/>
+                        {products.map((product: Product) => (
+                            <ProductRowCard key={product.id} product={product}/>
                         ))}
                     </div>
                 </div>

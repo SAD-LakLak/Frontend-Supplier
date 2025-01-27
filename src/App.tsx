@@ -9,7 +9,9 @@ import ResetPassword from "./pages/ResetPassword/ResetPassword.tsx";
 import ChangePassword from "./pages/ChangePassword/ChangePassword.tsx";
 import Dashboard from "./pages/Dashboard/Dashboad.tsx";
 import Products from "./pages/Products/Products.tsx";
-
+import SingleProduct from "./pages/Products/SingleProduct.tsx";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const App: React.FC = () => {
     return (
@@ -29,14 +31,8 @@ const App: React.FC = () => {
                             </ProtectedRoute>
                         }
                     />
-                    <Route
-                        path="/products"
-                        element={
-                            <ProtectedRoute>
-                                <Products/>
-                            </ProtectedRoute>
-                        }
-                    />
+                    <Route path="/products" element={<Products/>}/>
+                    <Route path="/products/:id" element={<SingleProduct/>}/>
                 </Routes>
             </Router>
         </AuthProvider>

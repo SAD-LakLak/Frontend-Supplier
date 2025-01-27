@@ -2,8 +2,7 @@ import React from "react";
 import Header from "./Header.tsx";
 import Footer from "./Footer.tsx";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+
 import {Link} from "react-router-dom";
 
 const settings = {

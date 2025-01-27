@@ -4,21 +4,28 @@ import {replaceEnglishDigits} from "../../utils/replacePersianNumbers.ts";
 import {Button} from "@material-tailwind/react";
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
+import {Link} from "react-router-dom";
+import login from "../Login/Login.tsx";
 
-interface ProductCardProps {
+interface ProductRowCardProps {
     product: Product;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({product}) => {
+const ProductRowCard: React.FC<ProductRowCardProps> = ({product}) => {
     return (
         // TODO: Add Edit/Delete Post Page
         <div
             className={"rounded-xl h-12 flex flex-row-reverse justify-between items-center px-4 py-6 border-2"}>
-            <p className={"font-IRANSansXMedium"}>{product.name}</p>
-            <p className={"font-IRANSansXDemiBold w-1/5 text-left"}
-               dir={"rtl"}>{replaceEnglishDigits(String(product.price)) + " تومان "}</p>
-            <p className={"font-IRANSansXDemiBold w-1/6 justify-end text-left"}
-               dir={"rtl"}>{replaceEnglishDigits(String(product.stock)) + " عدد "}</p>
+            <Link to={`/products/${product.id}`}>
+                <p className="font-IRANSansXMedium">{product.name}</p>
+            </Link>
+            <p className="font-IRANSansXDemiBold w-1/5 text-left" dir="rtl">
+                {replaceEnglishDigits(String(product.price)) + " تومان "}
+            </p>
+            <p className="font-IRANSansXDemiBold w-1/6 justify-end text-left" dir="rtl">
+                {replaceEnglishDigits(String(product.stock)) + " عدد "}
+            </p>
+
             <Button disabled={true}
                     className="rounded-full w-fit bg-accent opacity-70  font-IRANSansXDemiBold">غیرفعال</Button>
             <div className={'flex items-center gap-2 justify-between'}>
@@ -29,4 +36,4 @@ const ProductCard: React.FC<ProductCardProps> = ({product}) => {
     );
 };
 
-export default ProductCard;
+export default ProductRowCard;
