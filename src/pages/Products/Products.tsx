@@ -5,9 +5,10 @@ import {TextField, MenuItem} from '@mui/material';
 import {useNavigate} from "react-router-dom";
 
 import {Button} from "@material-tailwind/react";
-import ProductRowCard from "./ProductCard.tsx";
+import ProductRowCard from "./ProductRowCard.tsx";
 import {Product} from "../../types/Product.ts";
 import axiosInstance from "../../constants/axiosConfig.ts";
+import {useAuth} from "../../context/AuthContext.tsx";
 
 const Products = () => {
     const navigate = useNavigate();
@@ -22,6 +23,7 @@ const Products = () => {
     });
 
     const [appliedFilters, setAppliedFilters] = useState({});
+    const auth = useAuth();
 
     const fetchProducts = async (filtersToApply) => {
         try {
@@ -29,7 +31,12 @@ const Products = () => {
                 .filter(([_, value]) => value !== '')
                 .map(([key, value]) => `${key}=${value}`)
                 .join('&');
-            const response = await axiosInstance.get(`/products/?${query}`);
+            const response = await axiosInstance.get(`/products/?${query}`, {
+                headers: {
+                    Authorization: `Bearer ${auth.accessToken}`
+                }
+            });
+            console.log(response.data.results);
             setProducts(response.data.results);
         } catch (error) {
             console.error('Error fetching products:', error);

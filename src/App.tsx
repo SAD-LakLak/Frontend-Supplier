@@ -31,8 +31,16 @@ const App: React.FC = () => {
                             </ProtectedRoute>
                         }
                     />
-                    <Route path="/products" element={<Products/>}/>
-                    <Route path="/products/:id" element={<SingleProduct/>}/>
+                    <Route path="/products" element={
+                        <ProtectedRoute>
+                            <Products/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/products/:id" element={
+                        <ProtectedRoute>
+                            <SingleProduct/>
+                        </ProtectedRoute>
+                    }/>
                 </Routes>
             </Router>
         </AuthProvider>

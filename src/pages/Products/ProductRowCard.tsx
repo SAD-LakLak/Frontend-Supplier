@@ -5,7 +5,6 @@ import {Button} from "@material-tailwind/react";
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import {Link} from "react-router-dom";
-import login from "../Login/Login.tsx";
 
 interface ProductRowCardProps {
     product: Product;
@@ -16,18 +15,18 @@ const ProductRowCard: React.FC<ProductRowCardProps> = ({product}) => {
         // TODO: Add Edit/Delete Post Page
         <div
             className={"rounded-xl h-12 flex flex-row-reverse justify-between items-center px-4 py-6 border-2"}>
-            <Link to={`/products/${product.id}`}>
-                <p className="font-IRANSansXMedium">{product.name}</p>
+            <Link className={" w-1/4 flex justify-end"} to={`/products/${product.id}`}>
+                <p className=" font-IRANSansXMedium">{product.name}</p>
             </Link>
-            <p className="font-IRANSansXDemiBold w-1/5 text-left" dir="rtl">
+            <p className=" font-IRANSansXDemiBold w-1/6 text-left" dir="rtl">
                 {replaceEnglishDigits(String(product.price)) + " تومان "}
             </p>
-            <p className="font-IRANSansXDemiBold w-1/6 justify-end text-left" dir="rtl">
+            <p className="font-IRANSansXDemiBold w-1/5 justify-end text-center" dir="rtl">
                 {replaceEnglishDigits(String(product.stock)) + " عدد "}
             </p>
 
-            <Button disabled={true}
-                    className="rounded-full w-fit bg-accent opacity-70  font-IRANSansXDemiBold">غیرفعال</Button>
+            <Button disabled={!product.is_active}
+                    className={`rounded-full w-fit bg-accent  font-IRANSansXDemiBolduse`}>{product.is_active ?  "فعال" : "غیرفعال"}</Button>
             <div className={'flex items-center gap-2 justify-between'}>
                 <DeleteForeverOutlinedIcon className={"text-accent hover:cursor-pointer"} fontSize={"large"}/>
                 <BorderColorOutlinedIcon className={"text-primary hover:cursor-pointer"} fontSize={"medium"}/>

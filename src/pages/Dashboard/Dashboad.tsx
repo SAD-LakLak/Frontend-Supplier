@@ -9,12 +9,11 @@ import {useNavigate} from "react-router-dom";
 function Dashboard() {
     const {accessToken,logout} = useAuth();
     const [userData, setUserData] = useState({
-        first_name: "",
+        username: "",
         phone_number: "",
         national_code: "",
         birth_date: "",
     });
-    let cnt = 0;
 
     useEffect(() => {
         const headers = {
@@ -22,11 +21,9 @@ function Dashboard() {
         }
         axiosInstance.get("/user/", {headers})
             .then((result) => {
-                console.log(cnt)
-                cnt += 1;
                 console.log(result.data)
                 setUserData({
-                    first_name: result.data.first_name,
+                    username: result.data.username,
                     phone_number: result.data.phone_number,
                     national_code: result.data.national_code,
                     birth_date: result.data.birth_date,
@@ -34,7 +31,7 @@ function Dashboard() {
             })
             .catch(() => {
                 setUserData({
-                    first_name: "",
+                    username: "",
                     phone_number: "",
                     national_code: "",
                     birth_date: "",
@@ -64,7 +61,7 @@ function Dashboard() {
                                 dir={"rtl"}>
                                 <p className={"text-lg font-IRANSansXBold"}>نام کاربری</p>
                                 <p className={"text-md font-IRANSansXDemiBold text-black"}>
-                                    {userData ? userData.first_name : "در حال بارگذاری..."}
+                                    {userData ? userData.username : "در حال بارگذاری..."}
                                 </p>
                             </div>
                             <div
