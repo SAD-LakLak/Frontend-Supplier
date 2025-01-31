@@ -56,6 +56,10 @@ const Products = () => {
         });
     };
 
+    const handleDeleteProduct = (productId: number) => {
+        setProducts( products.filter((p) => p.id !== productId));
+    };
+
     const applyFilters = () => {
         setAppliedFilters(filters);
         fetchProducts(filters);
@@ -134,7 +138,7 @@ const Products = () => {
                     {/* نمایش لیست محصولات */}
                     <div className="flex flex-col gap-2 px-4">
                         {products.map((product: Product) => (
-                            <ProductRowCard key={product.id} product={product}/>
+                            <ProductRowCard key={product.id} product={product} onDelete={handleDeleteProduct}/>
                         ))}
                     </div>
                 </div>

@@ -77,7 +77,7 @@ function SignUp() {
         if (validateForm()) {
             formData.phone_number = replacePersianNumbers(formData.phone_number);
             formData.national_code = replacePersianNumbers(formData.national_code);
-            formData.role = "customer";
+            formData.role = "supplier";
 
             signUp(formData, showNotification).then(() => {
                 setTimeout(() => {

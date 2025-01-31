@@ -10,13 +10,13 @@ import {deleteProduct} from "../pages/Products/deleteProduct.ts";
 
 interface ProductRowCardProps {
     product: Product;
+    onDelete:(productId: number) => void;
 }
 
-const ProductRowCard: React.FC<ProductRowCardProps> = ({product}) => {
+const ProductRowCard: React.FC<ProductRowCardProps> = ({product,onDelete}) => {
     const {accessToken} = useAuth()
     const navigate = useNavigate();
     return (
-        // TODO: Add Edit/Delete Post Page
         <div
             className={"rounded-xl h-12 flex flex-row-reverse justify-between items-center px-4 py-6 border-2"}>
             <Link className={" w-1/4 flex justify-end"} to={`/products/${product.id}`}>
@@ -33,6 +33,7 @@ const ProductRowCard: React.FC<ProductRowCardProps> = ({product}) => {
                     className={`rounded-full w-fit bg-accent  font-IRANSansXDemiBolduse`}>{product.is_active ? "فعال" : "غیرفعال"}</Button>
             <div className={'flex items-center gap-2 justify-between'}>
                 <DeleteForeverOutlinedIcon onClick={() => {
+                    onDelete(product.id)
                     deleteProduct(accessToken, product.id).then(() => {
                         navigate("/products")
                     })
