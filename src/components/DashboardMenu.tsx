@@ -16,10 +16,10 @@ function DashboardMenu() {
                 <Button onClick={() => {
                     navigate("/products")
                 }} className="rounded-full w-[80%] bg-primary font-IRANSansXDemiBold">محصولات</Button>
-                <Button onClick={() => {
+                <Button disabled={true} onClick={() => {
                     navigate("/orders")
                 }} className="rounded-full w-[80%] bg-primary font-IRANSansXDemiBold">سفارشات</Button>
-                <Button onClick={() => {
+                <Button disabled={true} onClick={() => {
                     navigate("/contact")
                 }} className="rounded-full w-[80%] bg-primary font-IRANSansXDemiBold">پشتیبانی</Button>
             </div>
