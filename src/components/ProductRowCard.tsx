@@ -4,13 +4,17 @@ import {replaceEnglishDigits} from "../utils/replacePersianNumbers.ts";
 import {Button} from "@material-tailwind/react";
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useAuth} from "../context/AuthContext.tsx";
+import {deleteProduct} from "../pages/Products/deleteProduct.ts";
 
 interface ProductRowCardProps {
     product: Product;
 }
 
 const ProductRowCard: React.FC<ProductRowCardProps> = ({product}) => {
+    const {accessToken} = useAuth()
+    const navigate = useNavigate();
     return (
         // TODO: Add Edit/Delete Post Page
         <div
@@ -26,9 +30,13 @@ const ProductRowCard: React.FC<ProductRowCardProps> = ({product}) => {
             </p>
 
             <Button disabled={!product.is_active}
-                    className={`rounded-full w-fit bg-accent  font-IRANSansXDemiBolduse`}>{product.is_active ?  "فعال" : "غیرفعال"}</Button>
+                    className={`rounded-full w-fit bg-accent  font-IRANSansXDemiBolduse`}>{product.is_active ? "فعال" : "غیرفعال"}</Button>
             <div className={'flex items-center gap-2 justify-between'}>
-                <DeleteForeverOutlinedIcon className={"text-accent hover:cursor-pointer"} fontSize={"large"}/>
+                <DeleteForeverOutlinedIcon onClick={() => {
+                    deleteProduct(accessToken, product.id).then(() => {
+                        navigate("/products")
+                    })
+                }} className={"text-accent hover:cursor-pointer"} fontSize={"large"}/>
                 <BorderColorOutlinedIcon className={"text-primary hover:cursor-pointer"} fontSize={"medium"}/>
             </div>
         </div>

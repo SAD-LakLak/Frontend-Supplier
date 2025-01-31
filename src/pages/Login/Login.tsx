@@ -19,7 +19,10 @@ function Login() {
         password: "",
     });
     const navigate = useNavigate()
-    const {login} = useAuth()
+    const {isAuthenticated,login} = useAuth()
+    if (isAuthenticated){
+        navigate("/dashboard")
+    }
     const handleSignIn = async () => {
         if (validateForm()) {
             const result = await signIn(formData)
