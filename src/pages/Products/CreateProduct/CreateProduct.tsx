@@ -122,7 +122,7 @@ function CreateProduct() {
 
             if (accessToken){
                 console.log(accessToken);
-                createProduct(formData, showNotification, accessToken).then(() => {
+                createProduct(formData, images, showNotification, accessToken).then(() => {
                 setTimeout(() => {
                     navigate("/products");
                 }, 1000);
@@ -185,7 +185,7 @@ function CreateProduct() {
                                     <Option value="clothing">پوشاک</Option>
                                     <Option value="sanitary">محصولات بهداشتی-مراقبتی</Option>
                                     <Option value="entertainment">سرگرمی</Option>
-                                    <Option value="food">خوردنی</Option>
+                                    <Option value="food">خوراکی</Option>
                                     <Option value="service">خدمات</Option>
                                     <Option value="other">سایر</Option>
                                 </Select>
@@ -225,7 +225,7 @@ function CreateProduct() {
                             <div className={"flex flex-col gap-4 items-end"}> 
                                 <p className={"w-full font-IRANSansXDemiBold text-3xl mb-8 text-onBackground"} dir={"rtl"}>تصاویر محصول</p>   
                                 <p className={"w-[200px] font-IRANSansXRegular text-wrap text-l mb-4 text-onBackground"} dir={"rtl"}>
-                                تا ۵ تصویر از محصول خود آپلود کنید. حداکثر سایز مجاز برای هر تصویر ۲ مگابایت است. استفاده از تصاویری که متعلق به شما نباشند غیرمجاز است و موجب غیرفعال شدن محصول خواهد شد.
+                                تا ۴ تصویر از محصول خود آپلود کنید. حداکثر سایز مجاز برای هر تصویر ۲ مگابایت است. استفاده از تصاویری که متعلق به شما نباشند غیرمجاز است و موجب غیرفعال شدن محصول خواهد شد.
                                 </p>   
                                 <label
                                     className="text-sm font-IRANSansXDemiBold bg-primary text-white px-4 py-2 rounded-3xl cursor-pointer transition hover:shadow-lg disabled:bg-gray-400 disabled:cursor-not-allowed"
