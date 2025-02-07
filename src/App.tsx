@@ -10,6 +10,7 @@ import ChangePassword from "./pages/ChangePassword/ChangePassword.tsx";
 import Dashboard from "./pages/Dashboard/Dashboad.tsx";
 import Products from "./pages/Products/Products.tsx";
 import CreateProduct from "./pages/Products/CreateProduct/CreateProduct.tsx";
+import EditProduct from "./pages/Products/Edit/id/Edit.tsx";
 
 
 
@@ -45,6 +46,14 @@ const App: React.FC = () => {
                                 <ProtectedRoute>
                                     <CreateProduct/>
                                  </ProtectedRoute>
+                            }
+                        />
+                        <Route 
+                            path="/products/edit/:id" 
+                            element={
+                                <ProtectedRoute>
+                                    <EditProduct/>
+                                </ProtectedRoute>
                             }
                         />
                     </Routes>
