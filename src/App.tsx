@@ -9,37 +9,40 @@ import ResetPassword from "./pages/ResetPassword/ResetPassword.tsx";
 import ChangePassword from "./pages/ChangePassword/ChangePassword.tsx";
 import Dashboard from "./pages/Dashboard/Dashboad.tsx";
 import Products from "./pages/Products/Products.tsx";
+import SingleProduct from "./pages/Products/id/SingleProduct.tsx";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import CreateProduct from "./pages/Products/CreateProduct/CreateProduct.tsx";
-
-
 
 const App: React.FC = () => {
     return (
         <AuthProvider>
-                <Router>
-                    <Routes>
-                        <Route path="/" element={<LandingPage/>}/>
-                        <Route path="/login" element={<Login/>}/>
-                        <Route path="/signUp" element={<SignUp/>}/>
-                        <Route path="/resetPassword" element={<ResetPassword/>}/>
-                        <Route path="/changePassword" element={<ChangePassword/>}/>
-                        <Route
-                            path="/dashboard"
-                            element={
-                                <ProtectedRoute>
-                                    <Dashboard/>
-                                 </ProtectedRoute>
-                            }
-                        />
-                        {/* <Route
-                            path="/products"
-                            element={
-                                <ProtectedRoute>
-                                    <Products/>
-                                 </ProtectedRoute>
-                            }
-                        /> */}
-                        <Route
+            <Router>
+                <Routes>
+                    <Route path="/" element={<LandingPage/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/signUp" element={<SignUp/>}/>
+                    <Route path="/resetPassword" element={<ResetPassword/>}/>
+                    <Route path="/changePassword" element={<ChangePassword/>}/>
+                    <Route
+                        path="/dashboard"
+                        element={
+                            <ProtectedRoute>
+                                <Dashboard/>
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route path="/products" element={
+                        <ProtectedRoute>
+                            <Products/>
+                        </ProtectedRoute>
+                    }/>
+                    <Route path="/products/:id" element={
+                        <ProtectedRoute>
+                            <SingleProduct/>
+                        </ProtectedRoute>
+                    }/>
+                   <Route
                             path="/products/createProduct"
                             element={
                                 <ProtectedRoute>
@@ -47,8 +50,8 @@ const App: React.FC = () => {
                                  </ProtectedRoute>
                             }
                         />
-                    </Routes>
-                </Router>
+                </Routes>
+            </Router>
         </AuthProvider>
     );
 };
