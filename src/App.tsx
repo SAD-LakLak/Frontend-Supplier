@@ -12,6 +12,7 @@ import Products from "./pages/Products/Products.tsx";
 import SingleProduct from "./pages/Products/id/SingleProduct.tsx";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import CreateProduct from "./pages/Products/CreateProduct/CreateProduct.tsx";
 
 const App: React.FC = () => {
     return (
@@ -41,6 +42,14 @@ const App: React.FC = () => {
                             <SingleProduct/>
                         </ProtectedRoute>
                     }/>
+                   <Route
+                            path="/products/createProduct"
+                            element={
+                                <ProtectedRoute>
+                                    <CreateProduct/>
+                                 </ProtectedRoute>
+                            }
+                        />
                 </Routes>
             </Router>
         </AuthProvider>

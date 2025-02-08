@@ -78,7 +78,6 @@ function SignUp() {
             formData.phone_number = replacePersianNumbers(formData.phone_number);
             formData.national_code = replacePersianNumbers(formData.national_code);
             formData.role = "supplier";
-
             signUp(formData, showNotification).then(() => {
                 setTimeout(() => {
                     navigate("/login");
@@ -189,7 +188,7 @@ function SignUp() {
                                 />
                                 <button
                                     type="button"
-                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-primary"
+                                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary"
                                     onClick={togglePasswordVisibility}
                                 >
                                     {formData.showPassword ? <VisibilityOutlined/> : <VisibilityOffOutlined/>}
@@ -226,6 +225,7 @@ function SignUp() {
                         </p>
                     </div>
                 </div>
+                <img className="flex-1 h-full  -z-0 object-cover hidden lg:block" src="/images/form.png" alt="Background"/>
             </div>
         </div>
     );

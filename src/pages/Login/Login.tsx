@@ -68,9 +68,6 @@ function Login() {
             <AlertNotif alertConfig={alertConfig}/>
             <div
                 className="flex w-[50%] rounded-2xl gap-0 bg-primary h-[75%] overflow-hidden shadow-2xl shadow-gray-800">
-                <img className="flex-1 h-full  -z-0 object-cover hidden lg:block" src="/images/form.png"
-                     alt="Background"/>
-
                 <div
                     className="flex-1 flex  flex-col justify-center items-center bg-primaryMiddle h-full overflow-hidden px-4">
                     <p className="w-full text-center text-3xl font-IRANSansXBold text-black mb-8">ورود</p>
@@ -112,7 +109,7 @@ function Login() {
                                 />
                                 <button
                                     type="button"
-                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-primary"
+                                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary"
                                     onClick={togglePasswordVisibility}
                                 >
                                     {showPassword ? (
@@ -153,6 +150,8 @@ function Login() {
                     </p>
 
                 </div>
+                <img className="flex-1 h-full  -z-0 object-cover hidden lg:block" src="/images/form.png"
+                     alt="Background"/>
             </div>
         </div>
     );
