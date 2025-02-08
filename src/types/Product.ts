@@ -6,6 +6,6 @@ export interface Product {
     info: string,
     price: string,
     stock: string,
-    images: string[];
+    product_images: string[];
     is_active: boolean;
 }

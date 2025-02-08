@@ -16,22 +16,23 @@ const Edit = () => {
     const auth = useAuth();
 
     const [formData, setFormData] = useState({
+        id: -1,
         type: "",
         name: "",
-        description: "",
+        info: "",
         price: "",
         stock: "",
     });
 
     const [errors, setErrors] = useState({
-        description: "",
+        info: "",
         price: "",
         stock: "",
         images: "",
         hasAccepted: "",
     });
 
-    const [images, setImages] = useState<(File | string)[]>([
+    const [images, setImages] = useState<string[]>([
         "../../../images/placeholder.svg",
         "../../../images/placeholder.svg",
         "../../../images/placeholder.svg",
@@ -64,16 +65,16 @@ const Edit = () => {
     useEffect(() => {
         if (product) {
             setFormData({
+                id: product.id || -1,
                 type: product.type || "",
                 name: product.name || "",
-                description: product.info || "",
+                info: product.info || "",
                 price: product.price || "",
                 stock: product.stock || "",
             });
-            
-            if (product.images){
-                setImages([...product.images, ...new Array(4 - product.images.length).fill("../../../images/placeholder.svg")]);
-            }
+             if(product.product_images){
+                setImages([...product.product_images, ...new Array(4 - product.product_images.length).fill("../../../images/placeholder.svg")]);
+             }
         }
     }, [product]);
 
@@ -82,36 +83,47 @@ const Edit = () => {
     const [hasAccepted, setHasAccepted] = useState<boolean>(false);
     const {accessToken, logout} = useAuth();
 
+    const createURLFromFile = (file: File): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result as string);
+            reader.onerror = () => reject(reader.error);
+            reader.readAsDataURL(file);
+        });
+    };
+
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
-        const newErrors = {...errors};
+        const newErrors = { ...errors };
         if (files) {
             const newImages = Array.from(files);
             const validImages: File[] = [];
-
+    
             for (const file of newImages) {
                 if (file.size > 2 * 1024 * 1024) {
-                    newErrors.images = "سایز تصاویر بیشتر از حد مجاز"
+                    newErrors.images = "سایز تصاویر بیشتر از حد مجاز";
                     setErrors(newErrors);
                 } else {
                     validImages.push(file);
                 }
             }
-
+    
             if (validImages.length > 0) {
-                setImages((prev) => {
-                    const updatedImages = [...prev];
-
-                    for (const image of validImages) {
-                        const placeholderIndex = updatedImages.findIndex(
-                            (img) => typeof img === "string"
-                        );
-                        if (placeholderIndex !== -1) {
-                            updatedImages[placeholderIndex] = image;
+                Promise.all(validImages.map((file) => createURLFromFile(file))).then((dataURLs) => {
+                    setImages((prev) => {
+                        const updatedImages = [...prev];
+    
+                        for (const dataURL of dataURLs) {
+                            const placeholderIndex = updatedImages.findIndex(
+                                (img) => img === "../../../images/placeholder.svg"
+                            );
+                            if (placeholderIndex !== -1) {
+                                updatedImages[placeholderIndex] = dataURL;
+                            }
                         }
-                    }
-
-                    return updatedImages;
+    
+                        return updatedImages;
+                    });
                 });
             }
         }
@@ -120,7 +132,7 @@ const Edit = () => {
     const handleRemoveImage = (index: number) => {
         setImages((prev) => {
             const updatedImages = [...prev];
-            updatedImages[index] = "../../../public/images/placeholder.svg";
+            updatedImages[index] = "../../../images/placeholder.svg";
             return updatedImages;
         });
     };
@@ -146,8 +158,8 @@ const Edit = () => {
             isValid = false;
         }
 
-        if ((formData.description).length < 20) {
-            newErrors.description = "توضیحات باید بیش از ۲۰ کاراکتر باشند";
+        if ((formData.info).length < 20) {
+            newErrors.info = "توضیحات باید بیش از ۲۰ کاراکتر باشند";
             isValid = false;
         }
 
@@ -167,7 +179,7 @@ const Edit = () => {
 
             if (accessToken){
                 console.log(accessToken);
-                editProduct(formData, images, showNotification, accessToken).then(() => {
+                editProduct(formData, showNotification, accessToken).then(() => {
                 setTimeout(() => {
                     navigate("/products");
                 }, 1000);
@@ -197,14 +209,14 @@ const Edit = () => {
                                 />
                                 <div className="relative w-full">
                                     <textarea
-                                        id="description"
-                                        value={formData.description}
-                                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                        id="info"
+                                        value={formData.info}
+                                        onChange={(e) => setFormData({ ...formData, info: e.target.value })}
                                         className="peer w-full h-full my-0.5 resize-none border-0 border-b border-gray-200 bg-transparent text-sm text-right font-IRANSansXRegular focus:border-orange-500 focus:outline-none focus:ring-0"
                                         rows={4}
                                     />
                                     <label
-                                        htmlFor="description"
+                                        htmlFor="info"
                                         className="absolute right-1 top-3 text-transparent transition-all duration-200 peer-focus:top-0 peer-focus:text-xs peer-focus:text-orange-500"
                                     >
                                         توضیحات
@@ -213,8 +225,8 @@ const Edit = () => {
                                     شامل برند، جنس، محل ساخت، مخاطب، تعداد در بسته، و...
                                     </p>
                                 </div>
-                                {errors.description && (
-                                    <p className="w-full text-red-500 text-sm">{errors.description}</p>
+                                {errors.info && (
+                                    <p className="w-full text-red-500 text-sm">{errors.info}</p>
                                 )}
                             </div>
                             <div className={"flex flex-col gap-4"}>
@@ -294,11 +306,11 @@ const Edit = () => {
                                     {images.slice(0, 2).map((image, index) => (
                                         <div key={index} className="w-1/2 relative">
                                             <img
-                                                src={typeof image === "string" ? image : URL.createObjectURL(image)}
+                                                src={image.image_url ? image.image_url : image}
                                                 alt={`Image ${index + 1}`}
                                                 className="w-full h-40 object-contain"
                                             />
-                                            {typeof image !== "string" && (
+                                            {image !== "../../../images/placeholder.svg" && (
                                                 <button
                                                     onClick={() => handleRemoveImage(index)}
                                                     className="absolute top-2 right-2 bg-primary opacity-75 text-white rounded-full w-6 h-6 flex items-center justify-center"
@@ -313,11 +325,11 @@ const Edit = () => {
                                     {images.slice(2, 4).map((image, index) => (
                                         <div key={index + 2} className="w-1/2 relative">
                                             <img
-                                                src={typeof image === "string" ? image : URL.createObjectURL(image)}
+                                                src={image.image_url ? image.image_url : image}
                                                 alt={`Image ${index + 3}`}
                                                 className="w-full h-40 object-contain"
                                             />
-                                            {typeof image !== "string" && (
+                                            {image !== "../../../images/placeholder.svg" && (
                                                 <button
                                                     onClick={() => handleRemoveImage(index + 2)}
                                                     className="absolute top-2 right-2 bg-primary opacity-75 text-white rounded-full w-6 h-6 flex items-center justify-center"
@@ -357,7 +369,7 @@ const Edit = () => {
                     onClick={handleEdit}
                     className="font-IRANSansXDemiBold px-12 rounded-3xl bg-primary text-white text-sm"
                 >
-                    ایجاد محصول
+                    ویرایش محصول
                 </Button>
             </div>
         </div>

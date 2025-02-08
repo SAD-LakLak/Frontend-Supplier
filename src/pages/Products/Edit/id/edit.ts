@@ -2,19 +2,17 @@ import axiosInstance from "../../../../constants/axiosConfig.ts";
 import {NotifConfig} from "../../../../components/Alert.tsx";
 
 interface ICreateProdBody {
+    id: number;
     type: string,
         // "clothing" | "service" | "sanitary" | "entertainment" | "food" | "other"
     name: string,
-    description: string,
+    info: string,
     price: string,
     stock: string,
 }
 
-type IProdImages = (File | string)[];
-
 export const editProduct = async (
     createProdData: ICreateProdBody,
-    prodImages: IProdImages,
     showNotification: (config: NotifConfig) => void,
     accessToken: string
 ) => {
@@ -28,27 +26,10 @@ export const editProduct = async (
     }
 
     axiosInstance
-        .post("/products/register/", body, {headers})
-        .then((res) => {
-            const formData = new FormData();
-            formData.append("id", res.data.id);
-
-            prodImages.forEach((file) => {
-                if (file instanceof File) {
-                    formData.append("image", file);
-                }
-            });
-
-            return axiosInstance.post("/products/image/", formData, {
-                headers: {
-                    ...headers,
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-        })
+        .post("/products/update/", body, {headers})
         .then(() => {
             notifConfig.notifType = "success";
-            notifConfig.text = "محصول با موفقیت ایجاد شد!";
+            notifConfig.text = "محصول با موفقیت ویرایش شد!";
         })
         .catch((err) => {
             notifConfig.notifType = "error";
