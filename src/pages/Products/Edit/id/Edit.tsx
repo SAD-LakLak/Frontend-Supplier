@@ -14,6 +14,7 @@ const Edit = () => {
     const {id} = useParams();
     const [product, setProduct] = useState<Product | null>(null);
     const auth = useAuth();
+    const [activityStatus, setActivityStatus] = useState<boolean | null>(null);;
 
     const [formData, setFormData] = useState({
         id: -1,
@@ -64,6 +65,7 @@ const Edit = () => {
 
     useEffect(() => {
         if (product) {
+            setActivityStatus(product.is_active ? true : false);
             setFormData({
                 id: product.id || -1,
                 type: product.type || "",
@@ -185,6 +187,15 @@ const Edit = () => {
                 }, 1000);
             });}
         }
+    };
+
+    const handleState = () => {
+        //to-do
+        setActivityStatus(!activityStatus);
+    };
+
+    const handleDelete = () => {
+        //to-do
     };
 
     return (
@@ -365,12 +376,28 @@ const Edit = () => {
                     است و اطلاعات واردشده حاوی هیچ‌گونه محتوای غیرقانونی، غیراخلاقی، یا ناقض حقوق دیگران نیستند.
                     </p> 
                 </div>
-                <Button
-                    onClick={handleEdit}
-                    className="font-IRANSansXDemiBold px-12 rounded-3xl bg-primary text-white text-sm"
-                >
-                    ویرایش محصول
-                </Button>
+                <div className={"w-full flex justify-between"}> {/* buttons */}
+                    <Button
+                        onClick={handleEdit}
+                        className="font-IRANSansXDemiBold px-12 rounded-3xl bg-primary text-white text-sm"
+                    >
+                        ویرایش محصول
+                    </Button>
+                    <div className={"inline-flex items-end gap-8"}>
+                        <Button
+                            onClick={handleState}
+                            className="font-IRANSansXDemiBold px-12 rounded-3xl bg-accent text-white text-sm"
+                        >
+                            {activityStatus? "غیرفعال کردن محصول" : "فعال کردن محصول"}
+                        </Button>
+                        <Button
+                            onClick={handleDelete}
+                            className="font-IRANSansXDemiBold px-12 rounded-3xl bg-red-600 text-white text-sm"
+                        >
+                            حذف محصول
+                        </Button>
+                    </div>
+                </div>
             </div>
         </div>
     );
