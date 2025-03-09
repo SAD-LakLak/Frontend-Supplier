@@ -1,10 +1,16 @@
+// noinspection TypeScriptValidateTypes
+
 import {defineConfig} from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
+    plugins: [react()],
     server: {
         host: '0.0.0.0',
         port: 5174,
-        strictPort: true,
-        allowedHosts: ['supplier.laklakbox.ir']
-    }
+        allowedHosts: ['supplier.laklakbox.ir'],
+        hmr: {
+            host: 'supplier.laklakbox.ir'
+        }
+    },
 });
