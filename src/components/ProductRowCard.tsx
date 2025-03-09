@@ -12,10 +12,11 @@ import axiosInstance from "../constants/axiosConfig.ts";
 interface ProductRowCardProps {
     product: Product;
     onDelete: (productId: number) => void;
+    state: Boolean
 }
 
 
-const ProductRowCard: React.FC<ProductRowCardProps> = ({product, onDelete}) => {
+const ProductRowCard: React.FC<ProductRowCardProps> = ({product, onDelete, state}) => {
     const navigate = useNavigate();
     const {accessToken} = useAuth();
     const [isActive, setIsActive] = useState(product.is_active);
@@ -30,9 +31,9 @@ const ProductRowCard: React.FC<ProductRowCardProps> = ({product, onDelete}) => {
 
     return (
         <div
-            className={"rounded-xl h-12 flex flex-row-reverse justify-between items-center px-4 py-6 border-2"}>
+            className={`rounded-xl h-12 flex flex-row-reverse justify-between items-center px-4 py-6 border-2 flex-grow ${state ? "border-accent" : ""}`}>
             <Link className={" w-1/4 flex justify-end"} to={`/products/${product.id}`}>
-                <p className=" font-IRANSansXMedium">{product.name}</p>
+                <p className=" font-IRANSansXMedium">{replaceEnglishDigits(product.name)}</p>
             </Link>
             <p className=" font-IRANSansXDemiBold w-1/6 text-left" dir="rtl">
                 {replaceEnglishDigits(String(product.price)) + " تومان "}
