@@ -8,6 +8,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {useAuth} from "../context/AuthContext.tsx";
 import {deleteProduct} from "../pages/Products/deleteProduct.ts";
 import axiosInstance from "../constants/axiosConfig.ts";
+import {formatPrice} from "../utils/formatePrice.ts";
 
 interface ProductRowCardProps {
     product: Product;
@@ -36,10 +37,10 @@ const ProductRowCard: React.FC<ProductRowCardProps> = ({product, onDelete, state
                 <p className=" font-IRANSansXMedium">{replaceEnglishDigits(product.name)}</p>
             </Link>
             <p className=" font-IRANSansXDemiBold w-1/6 text-left" dir="rtl">
-                {replaceEnglishDigits(String(product.price)) + " تومان "}
+                {formatPrice(String(product.price)) + " تومان "}
             </p>
             <p className="font-IRANSansXDemiBold w-1/5 justify-end text-center" dir="rtl">
-                {replaceEnglishDigits(String(product.stock)) + " عدد "}
+                {formatPrice(String(product.stock)) + " عدد "}
             </p>
 
             <Button onClick={handleDisableProduct}

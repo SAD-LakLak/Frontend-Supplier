@@ -12,6 +12,8 @@ import {replaceEnglishDigits} from "../../utils/replacePersianNumbers.ts";
 import SearchIcon from '@mui/icons-material/Search';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import {Checkbox} from "@material-tailwind/react";
+import Slider from '@mui/material/Slider';
+import {formatPrice} from "../../utils/formatePrice.ts";
 
 const Products = () => {
         const navigate = useNavigate();
@@ -28,6 +30,36 @@ const Products = () => {
         const [stock, setStock] = useState({
             delta: '',
         });
+
+        const sliderValue = [
+            filters.min_price ? Number(filters.min_price) : 0,
+            filters.max_price ? Number(filters.max_price) : 5000000,
+        ];
+        const sliderValueStock = [
+            filters.min_stock ? Number(filters.min_stock) : 0,
+            filters.max_stock ? Number(filters.max_stock) : 5000000,
+        ];
+        const handleSliderChange = (event: Event, newValue: number | number[]) => {
+            setFilters((prevFilters) => {
+                const newFilters = {
+                    ...prevFilters,
+                    min_price: newValue[0].toString(),
+                    max_price: newValue[1].toString()
+                };
+                return newFilters;
+            });
+        };
+        const handleSliderStockChange = (event: Event, newValue: number | number[]) => {
+            setFilters((prevFilters) => {
+                const newFilters = {
+                    ...prevFilters,
+                    min_stock: newValue[0].toString(),
+                    max_stock: newValue[1].toString()
+                };
+                return newFilters;
+            });
+        };
+
 
         const [appliedFilters, setAppliedFilters] = useState({});
         const [openFilterModal, setOpenFilterModal] = useState(false);
@@ -73,7 +105,7 @@ const Products = () => {
         const applyFilters = () => {
             setAppliedFilters(filters);
             fetchProducts(filters);
-            setOpenFilterModal(false); // بستن مودال بعد از اعمال فیلتر
+            setOpenFilterModal(false);
         };
 
         const clearFilters = () => {
@@ -188,51 +220,44 @@ const Products = () => {
                 <DashboardMenu/>
 
                 {/* مودال فیلترها */}
-                <Dialog fullScreen open={openFilterModal} onClose={() => setOpenFilterModal(false)}>
-                    <DialogTitle>فیلتر محصولات</DialogTitle>
-                    <DialogContent>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <TextField
-                                label="حداقل قیمت"
-                                name="min_price"
-                                type="number"
-                                variant="outlined"
-                                value={filters.min_price}
-                                onChange={handleFilterChange}
-                                fullWidth
+                <Dialog className={"my-[2%] mx-[30%]"} fullScreen open={openFilterModal}
+                        onClose={() => setOpenFilterModal(false)}>
+                    <div
+                        className={"w-full h-full bg-[#FAB862] flex justify-center flex-col items-center py-6 pt-12 px-20"}>
+                        <p className={"font-IRANSansXBold text-3xl text-white"}>فیلترها</p>
+                        <div className={"w-full mt-10 flex flex-col justify-start"}>
+                            <p className={"font-IRANSansXRegular text-md text-white"}>محدوده‌ی قیمت</p>
+                            <Slider
+                                value={sliderValue}
+                                onChange={handleSliderChange}
+                                dir={"ltr"}
+                                valueLabelDisplay="auto"
+                                min={0}
+                                max={5000000}
+                                step={100000}
+                                valueLabelFormat={(value) => `${formatPrice(value)} تومان`}
                             />
-                            <TextField
-                                label="حداکثر قیمت"
-                                name="max_price"
-                                type="number"
-                                variant="outlined"
-                                value={filters.max_price}
-                                onChange={handleFilterChange}
-                                fullWidth
+                        </div>
+                        <div className={"w-full mt-10 flex flex-col justify-start"}>
+                            <p className={"font-IRANSansXRegular text-md text-white"}>محدوده‌ی موجودی</p>
+                            <Slider
+                                value={sliderValueStock}
+                                onChange={handleSliderStockChange}
+                                dir={"ltr"}
+                                valueLabelDisplay="auto"
+                                min={0}
+                                max={1000}
+                                step={10}
+                                valueLabelFormat={(value) => `${formatPrice(value)} تومان`}
                             />
+                        </div>
+                        <div className={"w-full mt-10 flex flex-col gap-3 justify-center items-center"}>
+                            <p className={"font-IRANSansXDemiBold text-lg text-white"}>مرتب‌سازی</p>
                             <TextField
-                                label="حداقل موجودی"
-                                name="min_stock"
-                                type="number"
-                                variant="outlined"
-                                value={filters.min_stock}
-                                onChange={handleFilterChange}
-                                fullWidth
-                            />
-                            <TextField
-                                label="حداکثر موجودی"
-                                name="max_stock"
-                                type="number"
-                                variant="outlined"
-                                value={filters.max_stock}
-                                onChange={handleFilterChange}
-                                fullWidth
-                            />
-                            <TextField
-                                label="مرتب‌سازی"
                                 name="ordering"
                                 select
-                                variant="outlined"
+                                color="warning"
+                                className={"font-IRANSansXRegular"}
                                 value={filters.ordering}
                                 onChange={handleFilterChange}
                                 fullWidth
@@ -243,12 +268,10 @@ const Products = () => {
                                 <MenuItem value="price">قیمت (صعودی)</MenuItem>
                             </TextField>
                         </div>
-                    </DialogContent>
-                    <DialogTitle>ادیت محصولات</DialogTitle>
-                    <DialogContent>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className={"w-full my-8 flex flex-col gap-3 justify-center items-center"}>
+                            <p className={"font-IRANSansXDemiBold text-lg text-white"}>ادیت تجمیعی</p>
                             <TextField
-                                label="Stock Delta"
+                                label="تعداد کالاها"
                                 name="delta"
                                 type="number"
                                 variant="outlined"
@@ -257,12 +280,19 @@ const Products = () => {
                                 fullWidth
                             />
                         </div>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={applyFilters} color="primary" variant="contained">اعمال فیلتر</Button>
-                        <Button onClick={clearFilters} color="secondary" variant="outlined">پاک کردن فیلتر</Button>
-                        <Button onClick={bulkEdit} color="secondary" variant="outlined">ادیت دسته جمعی</Button>
-                    </DialogActions>
+
+                        <DialogActions>
+                            <Button onClick={applyFilters}
+                                    className={"text-white bg-primary border-primary border-2 font-IRANSansXBold rounded-2xl mx-2"}
+                                    variant="contained">اعمال فیلتر</Button>
+                            <Button onClick={clearFilters}
+                                    className={"text-onBackground bg-transparent border-primary border-2 font-IRANSansXBold rounded-2xl mx-2"}
+                                    variant="outlined">پاک کردن فیلتر</Button>
+                            <Button onClick={bulkEdit}
+                                    className={"text-white bg-primary border-primary border-2 font-IRANSansXBold rounded-2xl mx-2"}
+                                    variant="outlined">ادیت دسته جمعی</Button>
+                        </DialogActions>
+                    </div>
                 </Dialog>
             </div>
         );
