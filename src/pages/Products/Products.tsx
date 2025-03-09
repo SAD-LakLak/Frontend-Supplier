@@ -126,7 +126,7 @@ const Products = () => {
 
                         {/* هدر صفحه */}
                         <div className="flex w-full justify-between h-12 items-center px-4">
-                            <Button onClick={() => navigate("/profile")}
+                            <Button onClick={() => navigate("/products/createProduct")}
                                     className="rounded-full w-fit bg-primary font-IRANSansXDemiBold">
                                 افزودن محصول جدید
                             </Button>
