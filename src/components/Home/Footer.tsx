@@ -16,7 +16,7 @@ function Footer() {
                     </div>
                     <div className={"flex flex-col items-start h-auto px-16 gap-4"}>
                         <Link to="/blog"><p className="font-IRANSansXDemiBold">بلاگ</p></Link>
-                        <Link to="/"><p className="font-IRANSansXDemiBold">فروشگاه لک‌لک</p></Link>
+                        <Link to="https://laklakbox.ir/"><p className="font-IRANSansXDemiBold">فروشگاه لک‌لک</p></Link>
                     </div>
                 </div>
                 <div>
