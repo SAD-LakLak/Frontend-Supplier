@@ -92,10 +92,16 @@ function Dashboard() {
                             </div>
                         </div>
                         <div className={"flex flex-col py-3 w-[20%] items-center justify-between"}>
-                            <Button disabled={true} className="rounded-full w-full bg-primary font-IRANSansXDemiBold">به‌روزرسانی اطلاعات</Button>
-                            <Button onClick={()=>{navigate("/resetPassword")}} className="rounded-full w-full bg-primary font-IRANSansXDemiBold">تغییر رمز عبور</Button>
-                            <Button disabled={true} className="rounded-full w-full bg-primary font-IRANSansXDemiBold">تایید شماره تماس</Button>
-                            <Button onClick={logout} className="rounded-full w-full bg-primary font-IRANSansXDemiBold">خروج از حساب کاربری</Button>
+                            <Button disabled={true} className="rounded-full w-full bg-primary font-IRANSansXDemiBold">به‌روزرسانی
+                                اطلاعات</Button>
+                            <Button onClick={() => {
+                                navigate("/resetPassword")
+                            }} className="rounded-full w-full bg-primary font-IRANSansXDemiBold">تغییر رمز عبور</Button>
+                            <Button disabled={true} className="rounded-full w-full bg-primary font-IRANSansXDemiBold">تایید
+                                شماره تماس</Button>
+                            <Button onClick={logout}
+                                    className="rounded-full w-full bg-white border-2 text-primary border-primary font-IRANSansXDemiBold hover:bg-primary hover:text-white">خروج
+                                از حساب کاربری</Button>
                         </div>
                     </div>
                 </div>

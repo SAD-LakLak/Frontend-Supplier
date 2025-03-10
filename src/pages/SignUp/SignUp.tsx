@@ -78,6 +78,7 @@ function SignUp() {
             formData.phone_number = replacePersianNumbers(formData.phone_number);
             formData.national_code = replacePersianNumbers(formData.national_code);
             formData.role = "supplier";
+>>>>>>>>> Temporary merge branch 2
 
             signUp(formData, showNotification).then(() => {
                 setTimeout(() => {

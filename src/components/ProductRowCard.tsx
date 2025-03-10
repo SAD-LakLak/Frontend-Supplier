@@ -8,14 +8,16 @@ import {Link, useNavigate} from "react-router-dom";
 import {useAuth} from "../context/AuthContext.tsx";
 import {deleteProduct} from "../pages/Products/deleteProduct.ts";
 import axiosInstance from "../constants/axiosConfig.ts";
+import {formatPrice} from "../utils/formatePrice.ts";
 
 interface ProductRowCardProps {
     product: Product;
     onDelete: (productId: number) => void;
+    state: Boolean
 }
 
 
-const ProductRowCard: React.FC<ProductRowCardProps> = ({product, onDelete}) => {
+const ProductRowCard: React.FC<ProductRowCardProps> = ({product, onDelete, state}) => {
     const navigate = useNavigate();
     const {accessToken} = useAuth();
     const [isActive, setIsActive] = useState(product.is_active);
@@ -30,15 +32,15 @@ const ProductRowCard: React.FC<ProductRowCardProps> = ({product, onDelete}) => {
 
     return (
         <div
-            className={"rounded-xl h-12 flex flex-row-reverse justify-between items-center px-4 py-6 border-2"}>
+            className={`rounded-xl h-12 flex flex-row-reverse justify-between items-center px-4 py-6 border-2 flex-grow ${state ? "border-accent" : ""}`}>
             <Link className={" w-1/4 flex justify-end"} to={`/products/${product.id}`}>
-                <p className=" font-IRANSansXMedium">{product.name}</p>
+                <p className=" font-IRANSansXMedium">{replaceEnglishDigits(product.name)}</p>
             </Link>
             <p className=" font-IRANSansXDemiBold w-1/6 text-left" dir="rtl">
-                {replaceEnglishDigits(String(product.price)) + " تومان "}
+                {formatPrice(String(product.price)) + " تومان "}
             </p>
             <p className="font-IRANSansXDemiBold w-1/5 justify-end text-center" dir="rtl">
-                {replaceEnglishDigits(String(product.stock)) + " عدد "}
+                {formatPrice(String(product.stock)) + " عدد "}
             </p>
 
             <Button onClick={handleDisableProduct}

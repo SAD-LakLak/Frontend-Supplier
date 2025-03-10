@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useState, ReactNode} from "react";
+import React, {createContext, useContext, useState, useEffect, ReactNode} from "react";
 import axiosInstance from "../constants/axiosConfig.ts";
 
 interface AuthContextType {
@@ -17,25 +17,40 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-    const [accessToken, setAccessToken] = useState<string | null>(null);
-    const [refreshToken, setRefreshToken] = useState<string | null>(null);
+    const [accessToken, setAccessToken] = useState<string | null>(localStorage.getItem("accessToken"));
+    const [refreshToken, setRefreshToken] = useState<string | null>(localStorage.getItem("refreshToken"));
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!(accessToken && refreshToken));
+
+    useEffect(() => {
+        if (accessToken && refreshToken) {
+            setIsAuthenticated(true);
+        }
+    }, [accessToken, refreshToken]);
 
     const login = (tokens: { accessToken: string; refreshToken: string }) => {
         setAccessToken(tokens.accessToken);
         setRefreshToken(tokens.refreshToken);
         setIsAuthenticated(true);
+
+        localStorage.setItem("accessToken", tokens.accessToken);
+        localStorage.setItem("refreshToken", tokens.refreshToken);
     };
 
     const logout = () => {
         axiosInstance.post("/logout/", {}, {headers: {Authorization: `Bearer ${accessToken}`}});
+
         setAccessToken(null);
         setRefreshToken(null);
         setIsAuthenticated(false);
+
+        // حذف از localStorage
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
     };
 
     const refreshAccessToken = async () => {
         if (!refreshToken) throw new Error("توکن رفرش موجود نیست.");
+
         try {
             const response = await fetch("/token/refresh/", {
                 method: "POST",
@@ -44,10 +59,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
                 },
                 body: JSON.stringify({"refresh": refreshToken}),
             });
+
             if (!response.ok) throw new Error("بازیابی توکن دسترسی ناموفق بود.");
+
             const data = await response.json();
             setAccessToken(data.access);
-            setRefreshToken(data.refresh);
+            localStorage.setItem("accessToken", data.access);
         } catch (error) {
             console.error("خطا در بازیابی توکن دسترسی:", error);
             logout();
