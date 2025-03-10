@@ -203,14 +203,15 @@ const Products = () => {
                         {/* نمایش لیست محصولات */}
                         <div className="flex flex-col gap-2 px-4">
                             {products.map((product: Product, index) => (
-                                <div className={"flex"}>
-                                    <ProductRowCard key={product.id} product={product} state={checkedItems[index]}
-                                                    onDelete={handleDeleteProduct}/>
+                                <div className={"flex items-start"}>
                                     <Checkbox
                                         color={"accent"}
                                         checked={checkedItems[index]}
                                         onClick={() => handleCheck(index)}
-                                    /></div>
+                                    />
+                                    <ProductRowCard key={product.id} product={product} state={checkedItems[index]}
+                                                    onDelete={handleDeleteProduct}/>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -220,7 +221,7 @@ const Products = () => {
                 <Dialog className={"my-[2%] mx-[30%]"} fullScreen open={openFilterModal}
                         onClose={() => setOpenFilterModal(false)}>
                     <div
-                        className={"w-full h-full bg-[#FAB862] flex justify-center flex-col items-center py-6 pt-12 px-20"}>
+                        className={"w-full bg-[#FAB862] flex justify-center flex-col items-center py-6 pt-12 px-20"}>
                         <p className={"font-IRANSansXBold text-3xl text-white"}>فیلترها</p>
                         <div className={"w-full mt-10 flex flex-col justify-start"}>
                             <p className={"font-IRANSansXRegular text-md text-white"}>محدوده‌ی قیمت</p>
@@ -272,6 +273,7 @@ const Products = () => {
                                 name="delta"
                                 type="number"
                                 variant="outlined"
+                                dir="rtl"
                                 value={stock.delta}
                                 onChange={handleStockChange}
                                 fullWidth
@@ -280,13 +282,13 @@ const Products = () => {
 
                         <DialogActions>
                             <Button onClick={applyFilters}
-                                    className={"text-white bg-primary border-primary border-2 font-IRANSansXBold rounded-2xl mx-2"}
+                                    className={"text-white bg-primary border-primary border-2 font-IRANSansXBold rounded-2xl mx-2 mb-4"}
                                     variant="contained">اعمال فیلتر</Button>
                             <Button onClick={clearFilters}
-                                    className={"text-onBackground bg-transparent border-primary border-2 font-IRANSansXBold rounded-2xl mx-2"}
+                                    className={"text-onBackground bg-transparent border-primary border-2 font-IRANSansXBold rounded-2xl mx-2 mb-4"}
                                     variant="outlined">پاک کردن فیلتر</Button>
                             <Button onClick={bulkEdit}
-                                    className={"text-white bg-primary border-primary border-2 font-IRANSansXBold rounded-2xl mx-2"}
+                                    className={"text-white bg-primary border-primary border-2 font-IRANSansXBold rounded-2xl mx-2 mb-4"}
                                     variant="outlined">ادیت دسته جمعی</Button>
                         </DialogActions>
                     </div>

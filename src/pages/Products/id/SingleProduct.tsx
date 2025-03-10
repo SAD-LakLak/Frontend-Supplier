@@ -54,7 +54,31 @@ const SingleProduct = () => {
 
     return (
         <div className={"bg-primaryMiddle w-full h-screen flex justify-center items-center"}>
-            <div className="w-1/2 h-2/3 flex mx-auto p-4 gap-2 justify-between pt-8 rounded-xl shadow-lg bg-primary">
+            <div className="w-1/2 h-2/3 flex mx-auto p-4 gap-2 justify-between rounded-xl shadow-lg bg-primary">
+                <div className={"flex h-full w-1/2 flex-col mx-4 bg-white rounded-2xl grow justify-between py-4 gap-4"}>
+                    <div className={"flex justify-between items-center font-IRANSansXMedium px-4 py-2 "}>
+                        <p className={"text-primary"}>نام محصول</p>
+                        <p className={"text-onBackground h-full"}>{product.name}</p>
+                    </div>
+                    <div className={"bg-onBackground opacity-10 w-full h-0.5"}></div>
+                    <div
+                        className={"flex justify-between gap-4 items-center font-IRANSansXMedium px-4 py-2 "}>
+                        <p className={"text-primary"}>توضیحات</p>
+                        <p className={"text-onBackground text-xs text-right"} dir={"rtl"}>{product.info}</p>
+                    </div>
+                    <div className={"bg-onBackground opacity-10 w-full h-0.5"}></div>
+                    <div
+                        className={"flex justify-between gap-4 items-center font-IRANSansXMedium px-4 py-2 "}>
+                        <p className={"text-primary"}>قیمت</p>
+                        <p className={"text-onBackground text-right"} dir={"rtl"}>{formatPrice(product.price) + " تومان"}</p>
+                    </div>
+                    <div className={"bg-onBackground opacity-10 w-full h-0.5"}></div>
+                    <div
+                        className={"flex justify-between gap-4 items-center font-IRANSansXMedium px-4 py-2"}>
+                        <p className={"text-primary"}>موجودی</p>
+                        <p className={"text-onBackground text-right"} dir={"rtl"}>{formatPrice(product.stock) + " عدد"}</p>
+                    </div>
+                </div>
                 <div className="w-1/2 h-full">
                     {product.product_images.length > 0 ?
                         (
@@ -74,33 +98,6 @@ const SingleProduct = () => {
                                 <img className="w-full h-96 object-cover rounded-xl" src={"/images/productPH.png"}/>
                             </Slider>)
                     }
-                </div>
-
-                <div className={"flex w-1/2 flex-col mx-4 mb-12 bg-white rounded-2xl grow justify-between py-4 gap-4"}>
-                    <div className={"flex justify-between items-center font-IRANSansXMedium px-4 py-2 "}>
-                        <p className={"text-onBackground h-full"}>{product.name}</p>
-                        <p className={"text-primary"}>نام محصول</p>
-                    </div>
-                    <div className={"bg-onBackground opacity-10 w-full h-0.5"}></div>
-                    <div
-                        className={"flex justify-between gap-4 items-center font-IRANSansXMedium px-4 py-2 "}>
-                        <p className={"text-onBackground text-xs text-right"} dir={"rtl"}>{product.info}</p>
-                        <p className={"text-primary"}>توضیحات</p>
-                    </div>
-                    <div className={"bg-onBackground opacity-10 w-full h-0.5"}></div>
-                    <div
-                        className={"flex justify-between gap-4 items-center font-IRANSansXMedium px-4 py-2 "}>
-                        <p className={"text-onBackground text-right"}
-                           dir={"rtl"}>{formatPrice(product.price) + " تومان"}</p>
-                        <p className={"text-primary"}>قیمت</p>
-                    </div>
-                    <div className={"bg-onBackground opacity-10 w-full h-0.5"}></div>
-                    <div
-                        className={"flex justify-between gap-4 items-center font-IRANSansXMedium px-4 py-2"}>
-                        <p className={"text-onBackground text-right"}
-                           dir={"rtl"}>{formatPrice(product.stock) + " عدد"}</p>
-                        <p className={"text-primary"}>موجودی</p>
-                    </div>
                 </div>
             </div>
         </div>
