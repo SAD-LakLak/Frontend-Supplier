@@ -64,7 +64,7 @@ function SignUp() {
         }
 
 
-        if (!formData.email.match(/^\w+@\w+$/)) {
+        if (!formData.email.match(/^\w+@\w+.\w+$/)) {
             newErrors.email = "ایمیل نامعتبر است";
             isValid = false;
         }
@@ -77,6 +77,7 @@ function SignUp() {
         if (validateForm()) {
             formData.phone_number = replacePersianNumbers(formData.phone_number);
             formData.national_code = replacePersianNumbers(formData.national_code);
+            formData.role = "supplier";
 
             signUp(formData, showNotification).then(() => {
                 setTimeout(() => {
