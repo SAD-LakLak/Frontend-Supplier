@@ -151,37 +151,25 @@ const Products = () => {
         };
 
         return (
-            <div className="bg-primaryLight min-h-screen h-screen w-full py-8 px-16 flex gap-8">
+            <div className="flex w-4/5 bg-primaryLight min-h-screen h-screen w-full py-8 px-16 flex gap-8">
+                {/* قسمت راست - منوی داشبورد */}
+                <DashboardMenu/>
                 {/* قسمت چپ - لیست محصولات */}
-                <div className="flex w-3/4 flex-col gap-4 rounded-2xl">
+                <div className="flex w-4/5 flex-col gap-4 rounded-2xl bg-white px-8 items-center">
                     <div className="flex w-full h-full overflow-y-scroll flex-col gap-4 rounded-2xl bg-white pt-10">
 
                         {/* هدر صفحه */}
                         <div className="flex w-full justify-between h-12 items-center px-4">
+                            <p className="text-2xl font-IRANSansXBold">فهرست محصولات</p>
                             <Button onClick={() => navigate("/products/createProduct")}
                                     className="rounded-full w-fit bg-primary font-IRANSansXDemiBold">
                                 افزودن محصول جدید
                             </Button>
-                            <p className="text-2xl font-IRANSansXBold">فهرست محصولات</p>
                         </div>
 
                         {/*سرچ بار*/}
                         <div className={"flex w-full justify-between items-center px-4"}>
-                            <p className={"font-IRANSansXMedium text-black"}
-                               dir={"rtl"}>{`${replaceEnglishDigits(products.length)} محصول`}</p>
                             <div className={"flex justify-between w-1/3 items-center"}>
-                                <IconButton className={"text-primary"} onClick={clearFilters}
-                                            size={"medium"}>
-                                    <FilterAltOffIcon className={"text-primary hover:cursor-pointer"} onClick={clearFilters}
-                                                      fontSize={"medium"}/>
-                                </IconButton>
-                                <IconButton className={"text-primary"} onClick={() => setOpenFilterModal(true)}
-                                            size={"medium"}>
-                                    <FilterAltOutlinedIcon className={"text-primary hover:cursor-pointer"}
-                                                           fontSize={"medium"}/>
-
-                                </IconButton>
-
                                 <div className="relative w-full max-w-lg">
                                     <SearchIcon
                                         onClick={applyFilters}
@@ -196,8 +184,20 @@ const Products = () => {
                                         className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all text-sm"
                                     />
                                 </div>
+                                <IconButton className={"text-primary"} onClick={clearFilters}
+                                            size={"medium"}>
+                                    <FilterAltOffIcon className={"text-primary hover:cursor-pointer"} onClick={clearFilters}
+                                                      fontSize={"medium"}/>
+                                </IconButton>
+                                <IconButton className={"text-primary"} onClick={() => setOpenFilterModal(true)}
+                                            size={"medium"}>
+                                    <FilterAltOutlinedIcon className={"text-primary hover:cursor-pointer"}
+                                                           fontSize={"medium"}/>
 
+                                </IconButton>
                             </div>
+                            <p className={"font-IRANSansXMedium text-black"}
+                               dir={"rtl"}>{`${replaceEnglishDigits(products.length)} محصول`}</p>
                         </div>
 
                         {/* نمایش لیست محصولات */}
@@ -215,9 +215,6 @@ const Products = () => {
                         </div>
                     </div>
                 </div>
-
-                {/* قسمت راست - منوی داشبورد */}
-                <DashboardMenu/>
 
                 {/* مودال فیلترها */}
                 <Dialog className={"my-[2%] mx-[30%]"} fullScreen open={openFilterModal}

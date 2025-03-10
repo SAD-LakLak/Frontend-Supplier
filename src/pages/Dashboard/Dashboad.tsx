@@ -49,14 +49,8 @@ function Dashboard() {
             <div className={"flex w-4/5 flex-col gap-4 rounded-2xl"}>
                 {/*top part*/}
                 <div className={"flex w-full flex-col gap-8 rounded-2xl bg-white p-8 items-end"}>
-                    <p className={"w-full font-IRANSansXBold text-3xl "} dir={"rtl"}>اطلاعات حساب کاربری</p>
+                    <p className={"w-full font-IRANSansXDemiBold text-2xl "} dir={"rtl"}>اطلاعات حساب کاربری</p>
                     <div className={"flex w-full justify-start gap-8"}>
-                        <div className={"flex flex-col py-3 w-[20%] items-center justify-between"}>
-                            <Button disabled={true} className="rounded-full w-full bg-primary font-IRANSansXDemiBold">به‌روزرسانی اطلاعات</Button>
-                            <Button onClick={()=>{navigate("/resetPassword")}} className="rounded-full w-full bg-primary font-IRANSansXDemiBold">تغییر رمز عبور</Button>
-                            <Button disabled={true} className="rounded-full w-full bg-primary font-IRANSansXDemiBold">تایید شماره تماس</Button>
-                            <Button onClick={logout} className="rounded-full w-full bg-primary font-IRANSansXDemiBold">خروج از حساب کاربری</Button>
-                        </div>
                         <div className={"flex flex-col w-[30%]"}>
                             <div
                                 className={"font-IRANSansXDemiBold text-primary flex items-center justify-between rounded-t-md px-4 py-4 border-2 w-full"}

@@ -135,7 +135,7 @@ function CreateProduct() {
             <AlertNotif alertConfig={alertConfig}/>
             <DashboardMenu/>
             {/*left div*/}
-            <div className={"flex w-full flex-col gap-8 rounded-2xl py-12 bg-white px-8 items-center"}>
+            <div className={"flex w-4/5 flex-col gap-8 rounded-2xl py-12 bg-white px-8 items-center"}>
                 <div className={"flex justify-between gap-16"}> {/* top div */}
                     <div className={"flex flex-col gap-4 w-2/5"}> {/* info form */}
                         <p className={"w-full font-IRANSansXDemiBold text-3xl mb-8 text-onBackground"} dir={"rtl"}>اطلاعات محصول</p>
@@ -314,9 +314,6 @@ function CreateProduct() {
                 >
                     ایجاد محصول
                 </Button>
-                <p className={"w-full font-IRANSansXRegular text-wrap text-center text-sm mb-4 text-onBackground opacity-80"} dir={"rtl"}>
-                محصول شما ابتدا در حالت غیرفعال ایجاد خواهد شد و پس از تایید به صورت خودکار فعال خواهد شد. برای پیگیری وضعیت تایید محصول می‌توانید به بخش تیکت‌های پنل پشتیبانی مراجعه کنید.
-                </p>
             </div>
         </div>
     );
