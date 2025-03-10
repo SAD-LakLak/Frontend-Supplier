@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import DashboardMenu from "../../components/DashboardMenu.tsx";
 import { useAuth } from "../../context/AuthContext.tsx";
 import axiosInstance from "../../constants/axiosConfig.ts";
-import { Button } from "@material-tailwind/react";
+import { Button, Input } from "@material-tailwind/react";
 import {Link} from "react-router-dom";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 

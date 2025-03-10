@@ -46,7 +46,9 @@ const ProductRowCard: React.FC<ProductRowCardProps> = ({product, onDelete, state
             <Button onClick={handleDisableProduct}
                     className={`rounded-full w-16 flex justify-center text-center bg-accent font-IRANSansXMedium ${!isActive ? "opacity-40" : ""}`}>{isActive ? "فعال" : "غیرفعال"}</Button>
             <div className={'flex items-center gap-2 justify-between'}>
-                <BorderColorOutlinedIcon className={"text-primary hover:cursor-pointer"} fontSize={"medium"}/>
+                <BorderColorOutlinedIcon onClick={() => {
+                    navigate("edit/" + product.id);
+                }} className={"text-primary hover:cursor-pointer"} fontSize={"medium"}/>
                 <DeleteForeverOutlinedIcon onClick={() => {
                     onDelete(product.id)
                     deleteProduct(accessToken, product.id).then(() => {
