@@ -8,7 +8,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {useAuth} from "../context/AuthContext.tsx";
 import {deleteProduct} from "../pages/Products/deleteProduct.ts";
 import axiosInstance from "../constants/axiosConfig.ts";
-import {formatPrice} from "../utils/formatePrice.ts";
+import {formatPrice} from "../utils/formatPrice.ts";
 
 interface ProductRowCardProps {
     product: Product;

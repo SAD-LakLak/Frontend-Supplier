@@ -19,8 +19,8 @@ function DashboardMenu() {
                 {/* <Button disabled={true} onClick={() => {
                     navigate("/orders")
                 }} className="rounded-full w-[80%] bg-primary font-IRANSansXDemiBold">سفارشات</Button> */}
-                <Button disabled={true} onClick={() => {
-                    navigate("/contact")
+                <Button onClick={() => {
+                    navigate("/tickets")
                 }} className="rounded-full w-[80%] bg-primary font-IRANSansXDemiBold">پشتیبانی</Button>
             </div>
             <p className={"font-IRANSansXDemiBold text-xs mb-4"} dir={"ltr"}>© LakLak 2024</p>

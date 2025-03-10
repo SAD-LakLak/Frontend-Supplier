@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import axiosInstance from "../../../constants/axiosConfig.ts";
 import {useAuth} from "../../../context/AuthContext.tsx";
 import {replaceEnglishDigits} from "../../../utils/replacePersianNumbers.ts";
-import {formatPrice} from "../../../utils/formatePrice.ts";
+import {formatPrice} from "../../../utils/formatPrice.ts";
 
 const SingleProduct = () => {
     const {id} = useParams();

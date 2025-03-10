@@ -13,7 +13,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import {Checkbox} from "@material-tailwind/react";
 import Slider from '@mui/material/Slider';
-import {formatPrice} from "../../utils/formatePrice.ts";
+import {formatPrice} from "../../utils/formatPrice.ts";
 
 const Products = () => {
         const navigate = useNavigate();

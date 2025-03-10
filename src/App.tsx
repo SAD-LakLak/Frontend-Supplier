@@ -12,6 +12,9 @@ import Products from "./pages/Products/Products.tsx";
 import CreateProduct from "./pages/Products/CreateProduct/CreateProduct.tsx";
 import EditProduct from "./pages/Products/Edit/id/Edit.tsx";
 import SingleProduct from "./pages/Products/id/SingleProduct.tsx";
+import Tickets from "./pages/Tickets/Tickets.tsx";
+import SingleTicket from "./pages/Tickets/id/SingleTickets.tsx";
+import CreateTicket from "./pages/Tickets/CreateTicket.tsx";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -56,6 +59,30 @@ const App: React.FC = () => {
                             element={
                                 <ProtectedRoute>
                                     <EditProduct/>
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route 
+                            path="/tickets" 
+                            element={
+                                <ProtectedRoute>
+                                    <Tickets/>
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route 
+                            path="/tickets/:id" 
+                            element={
+                                <ProtectedRoute>
+                                    <SingleTicket/>
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route 
+                            path="/tickets/create" 
+                            element={
+                                <ProtectedRoute>
+                                    <CreateTicket/>
                                 </ProtectedRoute>
                             }
                         />
